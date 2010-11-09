@@ -129,7 +129,7 @@ public class CatFiles {
 			if (noclobber && file.exists()) {
 				throw new InvalidUsageException("Won't open "+outputfile+" for writing: File exists and -nc specified");
 			}
-			return new FileOutputStream(outputfile);
+			return new FileOutputStream(file, append);
 		}
 	}
 
