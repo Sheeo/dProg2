@@ -1,13 +1,28 @@
 import java.io.*;
-public class CatFiles {
-	public static void main(String[] args) {
 
-		String[] input = tryGetInput(args);
-		String output = getOutput(args);
-		OutputStream f;
-		
+public class CatFiles {
+	
+	private String[] input;
+	
+	private String output;
+
+	private OutputStream outputStream;
+
+	public static void main(String[] args) {
+		CatFiles cat = new CatFiles(args);
+		cat.execute();
+	}
+
+	public CatFiles(String[] args)
+	{
+		input = tryGetInput(args);
+		output = getOutput(args);
+	}
+
+	public void execute()
+	{
 		try {
-			f = new FileOutputStream(output);
+			outputStream = outputFactory(output);
 		} catch (IOException e) {
 			System.err.println("Couldn't open "+output+" for writing");
 			e.printStackTrace();
@@ -26,7 +41,7 @@ public class CatFiles {
 			}
 			System.out.println("Opened input file "+inputfile);
 			try {
-				copy(r, f);
+				copy(r, outputStream);
 				r.close();
 			} catch (IOException e) {
 				System.err.println("Couldn't copy "+inputfile+" to output");
@@ -35,7 +50,7 @@ public class CatFiles {
 			}
 		}
 		try {
-			f.close();
+			outputStream.close();
 		} catch (IOException e) {
 			System.err.println("Couldn't close "+output);
 			e.printStackTrace();
@@ -90,6 +105,18 @@ public class CatFiles {
 			return new FileInputStream(inputfile);
 		}
 
+	}
+
+	private static OutputStream outputFactory(String outputfile) throws IOException
+	{
+		if(outputfile.equals("-"))
+		{
+			return System.out;
+		}
+		else
+		{
+			return new FileOutputStream(outputfile);
+		}
 	}
 
 	private static void usage() {
