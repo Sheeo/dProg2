@@ -1,4 +1,7 @@
 Aflevering Uge 1 for Mathias Rav og Michael Søndergaard
 
-Usage:
-	CatFiles infile infile outfile
+CatFiles:
+	usage: java CatFiles [-a|-nc] [--] input [input [...]] outputArg
+
+Hexa:
+	usage: run HexaTester
