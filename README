@@ -1,1 +1,4 @@
 Aflevering Uge 1 for Mathias Rav og Michael Søndergaard
+
+Usage:
+	CatFiles infile infile outfile
