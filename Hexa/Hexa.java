@@ -1,25 +1,29 @@
-// WARNING: some method is not implemented correctly.
 public class Hexa {
 
-  //IMPLEMENTATION INVARIANT 
-  //"hexa" is the hexadecimal representation of integer "num"
+	//IMPLEMENTATION INVARIANT 
+	//"hexa" is the hexadecimal representation of integer "num"
 
-  private int num;
-  private String hexa;
+	private int num;
+	private String hexa;
 
-  public Hexa(int n) {
-    num = n;
-    hexa = Integer.toHexString(n).toUpperCase();
-  }
+	public Hexa(int n) {
+		num = n;
+		hexa = Integer.toHexString(n).toUpperCase();
+		assert sanityCheck();
+	}
 
-  public void increment() {
-    num++;
-    hexa = hexa.substring(0,hexa.length()-1)
-           +(char)(hexa.charAt(hexa.length()-1)+1);
-  }
-    
-  public String toString() {
-    return  num + " equals "
-            + hexa + " in hexadecimal notation";
-  }
+	private boolean sanityCheck() {
+		return hexa.toUpperCase().equals(Integer.toHexString(num).toUpperCase());
+	}
+
+	public void increment() {
+		num++;
+		hexa = Integer.toHexString(num).toUpperCase();
+		assert sanityCheck();
+	}
+		
+	public String toString() {
+		return num + " equals "
+		       + hexa + " in hexadecimal notation";
+	}
 }
