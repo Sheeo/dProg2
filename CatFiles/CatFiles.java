@@ -115,7 +115,10 @@ public class CatFiles {
 		}
 	}
 
-	private static OutputStream outputFactory(String outputfile) throws IOException {
+	private static OutputStream outputFactory(String outputfile) throws IOException, InvalidUsageException {
+		if (outputfile == null) {
+			throw new InvalidUsageException("Which file?");
+		}
 		if (outputfile.equals("-")) {
 			return System.out;
 		} else {

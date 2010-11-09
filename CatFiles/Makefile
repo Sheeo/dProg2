@@ -11,5 +11,5 @@ test: all
 	java CatFiles gen/input1 gen/input2 gen/output
 	diff gen/output gen/outputexpect
 	echo "Single file" > gen/single
-	java CatFiles gen/single && false
-	java CatFiles && false
+	! java CatFiles
+	! java CatFiles gen/single
