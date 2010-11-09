@@ -110,7 +110,7 @@ public class CatFiles {
 		if (verbose) System.err.println("Wrote "+totes+" bytes");
 	}
 
-	private static InputStream inputFactory(String inputfile) throws IOException {
+	private InputStream inputFactory(String inputfile) throws IOException {
 		if (inputfile.equals("-")) {
 			return System.in;
 		} else {
@@ -118,13 +118,17 @@ public class CatFiles {
 		}
 	}
 
-	private static OutputStream outputFactory(String outputfile) throws IOException, InvalidUsageException {
+	private OutputStream outputFactory(String outputfile) throws IOException, InvalidUsageException {
 		if (outputfile == null) {
 			throw new InvalidUsageException("Which file?");
 		}
 		if (outputfile.equals("-")) {
 			return System.out;
 		} else {
+			File file = new File(outputfile);
+			if (noclobber && file.exists()) {
+				throw new InvalidUsageException("Won't open "+outputfile+" for writing: File exists and -nc specified");
+			}
 			return new FileOutputStream(outputfile);
 		}
 	}
