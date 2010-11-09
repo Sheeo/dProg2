@@ -1,11 +1,28 @@
 import java.io.*;
+
 public class CatFiles {
+	
+	private String[] input;
+	
+	private String output;
+
+	private OutputStream outputStream;
+
 	public static void main(String[] args) {
-		String[] input = tryGetInput(args);
-		String output = getOutput(args);
-		FileWriter f;
+		CatFiles cat = new CatFiles(args);
+		cat.execute();
+	}
+
+	public CatFiles(String[] args)
+	{
+		input = tryGetInput(args);
+		output = getOutput(args);
+	}
+
+	public void execute()
+	{
 		try {
-			f = new FileWriter(output);
+			outputStream = outputFactory(output);
 		} catch (IOException e) {
 			System.err.println("Couldn't open "+output+" for writing");
 			e.printStackTrace();
@@ -14,9 +31,9 @@ public class CatFiles {
 		}
 		System.out.println("Opened output file "+output);
 		for (String inputfile : input) {
-			FileReader r;
+			InputStream r;
 			try {
-				r = new FileReader(inputfile);
+				r = inputFactory(inputfile);
 			} catch (IOException e) {
 				System.err.println("Couldn't open "+inputfile+" for reading");
 				e.printStackTrace();
@@ -24,7 +41,7 @@ public class CatFiles {
 			}
 			System.out.println("Opened input file "+inputfile);
 			try {
-				copy(r, f);
+				copy(r, outputStream);
 				r.close();
 			} catch (IOException e) {
 				System.err.println("Couldn't copy "+inputfile+" to output");
@@ -33,7 +50,7 @@ public class CatFiles {
 			}
 		}
 		try {
-			f.close();
+			outputStream.close();
 		} catch (IOException e) {
 			System.err.println("Couldn't close "+output);
 			e.printStackTrace();
@@ -65,18 +82,44 @@ public class CatFiles {
 		}
 	}
 
-	private static void copy(Reader input, Writer output) throws IOException {
-		char[] cbuf = new char[1024];
+	private static void copy(InputStream input, OutputStream output) throws IOException {
+		byte[] buf = new byte[1024];
 		int totes = 0;
 		while (true) {
-			int read = input.read(cbuf);
+			int read = input.read(buf);
 			if (read == -1) break;
 			totes += read;
-			output.write(cbuf, 0, read);
+			output.write(buf, 0, read);
 		}
 		System.out.println("Wrote "+totes+" bytes");
 	}
 
+	private static InputStream inputFactory(String inputfile) throws IOException
+	{
+		if(inputfile.equals("-"))
+		{
+			return System.in;
+		}
+		else
+		{
+			return new FileInputStream(inputfile);
+		}
+
+	}
+
+	private static OutputStream outputFactory(String outputfile) throws IOException
+	{
+		if(outputfile.equals("-"))
+		{
+			return System.out;
+		}
+		else
+		{
+			return new FileOutputStream(outputfile);
+		}
+	}
+
 	private static void usage() {
+		System.out.println("usage: java CatFiles [-a, -nc] [file ... (- for stdin)] [outfile ... (- for stdout)]");
 	}
 }
