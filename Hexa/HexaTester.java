@@ -27,6 +27,7 @@ public class HexaTester {
 			System.out.println(nn);
 		} catch (AssertionError e) {
 			System.err.println("Holy assertion error, Batman!");
+			e.printStackTrace();
 		}
 	}
 }
