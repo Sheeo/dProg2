@@ -1,85 +1,98 @@
+import java.util.*;
 import java.io.*;
 
 public class CatFiles {
-	
-	private String[] input;
-	
-	private String output;
+	private List<String> inputArgs;
+	private String outputArg;
 
 	private OutputStream outputStream;
 
+	private boolean append;
+	private boolean noclobber;
+
 	public static void main(String[] args) {
-		CatFiles cat = new CatFiles(args);
-		cat.execute();
-	}
-
-	public CatFiles(String[] args)
-	{
-		input = tryGetInput(args);
-		output = getOutput(args);
-	}
-
-	public void execute()
-	{
 		try {
-			outputStream = outputFactory(output);
+			CatFiles cat = new CatFiles(args);
+			cat.execute();
+		} catch (InvalidUsageException e) {
+			System.err.println(e.getMessage());
+			usage();
+			System.exit(1);
 		} catch (IOException e) {
-			System.err.println("Couldn't open "+output+" for writing");
+			System.err.println("I/O error");
 			e.printStackTrace();
 			System.exit(1);
-			return;
 		}
-		System.out.println("Opened output file "+output);
-		for (String inputfile : input) {
-			InputStream r;
-			try {
-				r = inputFactory(inputfile);
-			} catch (IOException e) {
-				System.err.println("Couldn't open "+inputfile+" for reading");
-				e.printStackTrace();
+	}
+
+	public CatFiles(String[] argv) throws InvalidUsageException {
+		class Args {
+			public ArrayList<String> inputArgs;
+			public String outputArg;
+			public Args() {
+				inputArgs = new ArrayList<String>();
+				outputArg = null;
+			}
+			public void add(String arg) {
+				if (outputArg != null) {
+					inputArgs.add(outputArg);
+				}
+				outputArg = arg;
+			}
+		}
+		Args args = new Args();
+		append = noclobber = false;
+		boolean onlyfiles = false;
+		for (int i = 0; i < argv.length; ++i) {
+			String arg = argv[i];
+			if (onlyfiles) {
+				args.add(arg);
 				continue;
 			}
-			System.out.println("Opened input file "+inputfile);
+			if (arg.equals("--")) {
+				onlyfiles = true;
+				continue;
+			}
+			if (arg.charAt(0) == '-') {
+				if (arg.equals("-a")) {
+					append = true;
+				} else if (arg.equals("-nc")) {
+					noclobber = true;
+				} else {
+					throw new InvalidUsageException("Unrecognised option: "+arg);
+				}
+				continue;
+			}
+			args.add(arg);
+		}
+		inputArgs = args.inputArgs;
+		outputArg = args.outputArg;
+	}
+
+	public void execute() throws IOException, InvalidUsageException {
+		try {
+			outputStream = outputFactory(outputArg);
+		} catch (IOException e) {
+			throw new InvalidUsageException("Couldn't open "+outputArg+" for writing");
+		}
+		System.err.println("Opened output file "+outputArg);
+		for (String input : inputArgs) {
+			InputStream r;
+			try {
+				r = inputFactory(input);
+			} catch (IOException e) {
+				System.err.println("Couldn't open "+input+" for reading");
+				continue;
+			}
+			System.out.println("Opened input file "+input);
 			try {
 				copy(r, outputStream);
 				r.close();
 			} catch (IOException e) {
-				System.err.println("Couldn't copy "+inputfile+" to output");
-				e.printStackTrace();
-				continue;
+				System.err.println("Couldn't copy "+input+" to output");
 			}
 		}
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-			System.err.println("Couldn't close "+output);
-			e.printStackTrace();
-			System.exit(1);
-			return;
-		}
-	}
-
-	private static String[] getInput(String[] args) {
-		String[] res = new String[args.length-1];
-		for (int i = 0; i < res.length; ++i) {
-			res[i] = args[i];
-		}
-		return res;
-	}
-
-	private static String getOutput(String[] args) {
-		return args[args.length-1];
-	}
-
-	private static String[] tryGetInput(String[] args) {
-		try {
-			String[] res = getInput(args);
-			return res;
-		} catch (IndexOutOfBoundsException e) {
-			usage();
-			System.exit(1);
-			return new String[0];
-		}
+		outputStream.close();
 	}
 
 	private static void copy(InputStream input, OutputStream output) throws IOException {
@@ -94,32 +107,30 @@ public class CatFiles {
 		System.out.println("Wrote "+totes+" bytes");
 	}
 
-	private static InputStream inputFactory(String inputfile) throws IOException
-	{
-		if(inputfile.equals("-"))
-		{
+	private static InputStream inputFactory(String inputfile) throws IOException {
+		if (inputfile.equals("-")) {
 			return System.in;
-		}
-		else
-		{
+		} else {
 			return new FileInputStream(inputfile);
 		}
-
 	}
 
-	private static OutputStream outputFactory(String outputfile) throws IOException
-	{
-		if(outputfile.equals("-"))
-		{
+	private static OutputStream outputFactory(String outputfile) throws IOException {
+		if (outputfile.equals("-")) {
 			return System.out;
-		}
-		else
-		{
+		} else {
 			return new FileOutputStream(outputfile);
 		}
 	}
 
 	private static void usage() {
-		System.out.println("usage: java CatFiles [-a, -nc] [file ... (- for stdin)] [outfile ... (- for stdout)]");
+		System.err.println("usage: java CatFiles [-a|-nc] [--] input [input [...]] output");
+		System.err.println("If input is -, read from standard input. If output is -, write to standard output.");
+	}
+}
+
+class InvalidUsageException extends Exception {
+	public InvalidUsageException(String message) {
+		super(message);
 	}
 }
