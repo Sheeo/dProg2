@@ -9,6 +9,7 @@ public class CatFiles {
 
 	private boolean append;
 	private boolean noclobber;
+	private boolean verbose;
 
 	public static void main(String[] args) {
 		try {
@@ -53,11 +54,13 @@ public class CatFiles {
 				onlyfiles = true;
 				continue;
 			}
-			if (arg.charAt(0) == '-') {
+			if (arg.length() > 1 && arg.charAt(0) == '-') {
 				if (arg.equals("-a")) {
 					append = true;
 				} else if (arg.equals("-nc")) {
 					noclobber = true;
+				} else if (arg.equals("-v")) {
+					verbose = true;
 				} else {
 					throw new InvalidUsageException("Unrecognised option: "+arg);
 				}
@@ -75,7 +78,7 @@ public class CatFiles {
 		} catch (IOException e) {
 			throw new InvalidUsageException("Couldn't open "+outputArg+" for writing");
 		}
-		System.err.println("Opened output file "+outputArg);
+		if (verbose) System.err.println("Opened output file "+outputArg);
 		for (String input : inputArgs) {
 			InputStream r;
 			try {
@@ -84,9 +87,9 @@ public class CatFiles {
 				System.err.println("Couldn't open "+input+" for reading");
 				continue;
 			}
-			System.out.println("Opened input file "+input);
+			if (verbose) System.err.println("Opened input file "+input);
 			try {
-				copy(r, outputStream);
+				copy(r);
 				r.close();
 			} catch (IOException e) {
 				System.err.println("Couldn't copy "+input+" to output");
@@ -95,16 +98,16 @@ public class CatFiles {
 		outputStream.close();
 	}
 
-	private static void copy(InputStream input, OutputStream output) throws IOException {
+	private void copy(InputStream inputStream) throws IOException {
 		byte[] buf = new byte[1024];
 		int totes = 0;
 		while (true) {
-			int read = input.read(buf);
+			int read = inputStream.read(buf);
 			if (read == -1) break;
 			totes += read;
-			output.write(buf, 0, read);
+			outputStream.write(buf, 0, read);
 		}
-		System.out.println("Wrote "+totes+" bytes");
+		if (verbose) System.err.println("Wrote "+totes+" bytes");
 	}
 
 	private static InputStream inputFactory(String inputfile) throws IOException {
