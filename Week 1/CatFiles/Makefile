@@ -1,12 +1,15 @@
-all: CatFiles.class ProgramOptions.class BinaryCatenator.class Catenator.class InvalidUsageException.class
+all: CatFiles.class ProgramOptions.class BinaryCatenator.class TextCatenator.class Catenator.class InvalidUsageException.class
 
-CatFiles.class: CatFiles.java ProgramOptions.class BinaryCatenator.class Catenator.class InvalidUsageException.class
+CatFiles.class: CatFiles.java ProgramOptions.class BinaryCatenator.class TextCatenator.class Catenator.class InvalidUsageException.class
 	javac $<
 
 ProgramOptions.class: ProgramOptions.java
 	javac $<
 
 BinaryCatenator.class: BinaryCatenator.java Catenator.class
+	javac $<
+
+TextCatenator.class: TextCatenator.java Catenator.class
 	javac $<
 
 Catenator.class: Catenator.java ProgramOptions.class

@@ -44,6 +44,7 @@ public class CatFiles {
 		boolean noclobber = false;
 		boolean verbose = false;
 		boolean onlyfiles = false;
+		boolean textmode = false;
 		for (int i = 0; i < argv.length; ++i) {
 			String arg = argv[i];
 			if (onlyfiles) {
@@ -61,6 +62,8 @@ public class CatFiles {
 					noclobber = true;
 				} else if (arg.equals("-v")) {
 					verbose = true;
+				} else if (arg.equals("-t")) {
+					textmode = true;
 				} else {
 					throw new InvalidUsageException("Unrecognised option: "+arg);
 				}
@@ -72,7 +75,7 @@ public class CatFiles {
 		outputArg = args.outputArg;
 
 		opts = new ProgramOptions(append, noclobber, verbose);
-		cat = new BinaryCatenator();
+		cat = textmode ? new TextCatenator() : new BinaryCatenator();
 		cat.setOpts(opts);
 	}
 
@@ -86,7 +89,7 @@ public class CatFiles {
 	}
 
 	private static void usage() {
-		System.err.println("usage: java CatFiles [-a|-nc] [--] input [input [...]] output");
+		System.err.println("usage: java CatFiles [-a] [-nc] [-t] [--] input [input [...]] output");
 		System.err.println("If input is -, read from standard input. If output is -, write to standard output.");
 	}
 }
