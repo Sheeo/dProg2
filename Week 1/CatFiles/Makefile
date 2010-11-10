@@ -20,20 +20,27 @@ InvalidUsageException.class: InvalidUsageException.java
 	javac $<
 
 test: all
-	mkdir -p gen
+	@mkdir -pv gen
+	@echo Testing catenation from/to files/stdin/stdout
 	java CatFiles examples/bog{1,2,3}.txt gen/bogall.txt
 	cat examples/bog{1,2,3}.txt|diff -q gen/bogall.txt -
 	cat examples/bog{1,2,3}.txt > gen/bogall.txt
 	java CatFiles examples/bog{1,2,3}.txt -|diff -q gen/bogall.txt -
 	cat examples/bog1.txt|java CatFiles - gen/bog1.txt
 	diff -q examples/bog1.txt gen/bog1.txt
+	@echo
+	@echo Testing -nc
 	@rm gen/bog1.txt || true
 	java CatFiles -nc {examples,gen}/bog1.txt
 	! java CatFiles -nc {examples,gen}/bog1.txt
+	@echo
+	@echo Testing -t
 	echo -n "No newline" > gen/nonl.txt
 	java CatFiles -t gen/nonl.txt gen/nl.txt
 	! diff -q gen/{no,}nl.txt
-	! java CatFiles
+	@echo
+	@echo Testing too few arguments
+	! java CatFiles -t
 	! java CatFiles examples/bog1.txt
 	@echo
 	@echo "All tests succeeded! Congratz"
