@@ -21,17 +21,22 @@ InvalidUsageException.class: InvalidUsageException.java
 
 test: all
 	mkdir -p gen
-	echo "Input 1" > gen/input1
-	echo "Input 2" > gen/input2
-	cat gen/input1 gen/input2 > gen/outputexpect
-	java CatFiles gen/input1 gen/input2 gen/output
-	diff gen/output gen/outputexpect
-	java CatFiles -t gen/input1 gen/input2 gen/output
-	diff gen/output gen/outputexpect
-	! java CatFiles -nc gen/input1 gen/input2 gen/output
-	echo "Single file" > gen/single
+	java CatFiles examples/bog{1,2,3}.txt gen/bogall.txt
+	cat examples/bog{1,2,3}.txt|diff -q gen/bogall.txt -
+	cat examples/bog{1,2,3}.txt > gen/bogall.txt
+	java CatFiles examples/bog{1,2,3}.txt -|diff -q gen/bogall.txt -
+	cat examples/bog1.txt|java CatFiles - gen/bog1.txt
+	diff -q examples/bog1.txt gen/bog1.txt
+	@rm gen/bog1.txt || true
+	java CatFiles -nc {examples,gen}/bog1.txt
+	! java CatFiles -nc {examples,gen}/bog1.txt
+	echo -n "No newline" > gen/nonl.txt
+	java CatFiles -t gen/nonl.txt gen/nl.txt
+	! diff -q gen/{no,}nl.txt
 	! java CatFiles
-	! java CatFiles gen/single
+	! java CatFiles examples/bog1.txt
+	@echo
+	@echo "All tests succeeded! Congratz"
 
 clean:
 	@rm -v *.class || true
