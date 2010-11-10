@@ -2,14 +2,12 @@ import java.util.*;
 import java.io.*;
 
 public class CatFiles {
+	private Catenator cat;
+
 	private List<String> inputArgs;
 	private String outputArg;
 
-	private OutputStream outputStream;
-
-	private boolean append;
-	private boolean noclobber;
-	private boolean verbose;
+	private ProgramOptions opts;
 
 	public static void main(String[] args) {
 		try {
@@ -42,7 +40,9 @@ public class CatFiles {
 			}
 		}
 		Args args = new Args();
-		append = noclobber = false;
+		boolean append = false;
+		boolean noclobber = false;
+		boolean verbose = false;
 		boolean onlyfiles = false;
 		for (int i = 0; i < argv.length; ++i) {
 			String arg = argv[i];
@@ -70,77 +70,23 @@ public class CatFiles {
 		}
 		inputArgs = args.inputArgs;
 		outputArg = args.outputArg;
+
+		opts = new ProgramOptions(append, noclobber, verbose);
+		cat = new BinaryCatenator();
+		cat.setOpts(opts);
 	}
 
 	public void execute() throws IOException, InvalidUsageException {
-		try {
-			outputStream = outputFactory(outputArg);
-		} catch (IOException e) {
-			throw new InvalidUsageException("Couldn't open "+outputArg+" for writing");
-		}
-		if (verbose) System.err.println("Opened output file "+outputArg);
+		cat.setOutput(outputArg);
+		if (opts.verbose) System.err.println("Opened output file "+outputArg);
 		for (String input : inputArgs) {
-			InputStream r;
-			try {
-				r = inputFactory(input);
-			} catch (IOException e) {
-				System.err.println("Couldn't open "+input+" for reading");
-				continue;
-			}
-			if (verbose) System.err.println("Opened input file "+input);
-			try {
-				copy(r);
-				r.close();
-			} catch (IOException e) {
-				System.err.println("Couldn't copy "+input+" to output");
-			}
+			cat.catenate(input);
 		}
-		outputStream.close();
-	}
-
-	private void copy(InputStream inputStream) throws IOException {
-		byte[] buf = new byte[1024];
-		int totes = 0;
-		while (true) {
-			int read = inputStream.read(buf);
-			if (read == -1) break;
-			totes += read;
-			outputStream.write(buf, 0, read);
-		}
-		if (verbose) System.err.println("Wrote "+totes+" bytes");
-	}
-
-	private InputStream inputFactory(String inputfile) throws IOException {
-		if (inputfile.equals("-")) {
-			return System.in;
-		} else {
-			return new FileInputStream(inputfile);
-		}
-	}
-
-	private OutputStream outputFactory(String outputfile) throws IOException, InvalidUsageException {
-		if (outputfile == null) {
-			throw new InvalidUsageException("Which file?");
-		}
-		if (outputfile.equals("-")) {
-			return System.out;
-		} else {
-			File file = new File(outputfile);
-			if (noclobber && file.exists()) {
-				throw new InvalidUsageException("Won't open "+outputfile+" for writing: File exists and -nc specified");
-			}
-			return new FileOutputStream(file, append);
-		}
+		cat.close();
 	}
 
 	private static void usage() {
 		System.err.println("usage: java CatFiles [-a|-nc] [--] input [input [...]] output");
 		System.err.println("If input is -, read from standard input. If output is -, write to standard output.");
-	}
-}
-
-class InvalidUsageException extends Exception {
-	public InvalidUsageException(String message) {
-		super(message);
 	}
 }
