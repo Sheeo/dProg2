@@ -1,5 +1,28 @@
 public class HexaTester {
 	public static void main(String[] args) {
+		if (asserts()) {
+			tests();
+		} else {
+			demos();
+		}
+	}
+
+	/**
+	 * Return true if asserts are enabled, false otherwise.
+	 */
+	private static boolean asserts() {
+		try {
+			assert false;
+		} catch (AssertionError e) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Run when asserts are enabled.
+	 */
+	private static void tests() {
 		System.out.println("Running HexaWrong. Expecting AssertionError.");
 		try {
 			HexaWrong n = new HexaWrong(447);
@@ -29,5 +52,18 @@ public class HexaTester {
 			System.err.println("Holy assertion error, Batman!");
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * Run when asserts are disabled.
+	 */
+	private static void demos() {
+		System.out.println("Assertions not enabled. Please run again with -ea.");
+		System.out.println("Instead, let's demo hexadecimals.");
+		Hexa n = new Hexa(0x2F9);
+		for (int i = 0x2F9; i <= 0x310; ++i, n.increment()) {
+			System.out.println(n);
+		}
+		System.out.println("Cool, don't you	think?");
 	}
 }
