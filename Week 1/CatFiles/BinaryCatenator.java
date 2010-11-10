@@ -1,6 +1,5 @@
 import java.io.*;
 public class BinaryCatenator implements Catenator {
-	private String input;
 	private String output;
 	private OutputStream outputStream;
 	private ProgramOptions opts;
