@@ -34,6 +34,10 @@ public class CeasarCrypt
 		while(true)
 		{
 			int read = input.read(characterBuffer);
+			for(char char : characterBuffer)
+			{
+				// increment by cipher
+			}
 			if(read == -1) break;
 			n += read;
 			output.write(characterBuffer, 0, read);
