@@ -1,4 +1,5 @@
-all: CatFiles.class ProgramOptions.class BinaryCatenator.class TextCatenator.class Catenator.class InvalidUsageException.class
+CLASSES=CatFiles.class ProgramOptions.class BinaryCatenator.class TextCatenator.class Catenator.class InvalidUsageException.class
+all: $(CLASSES)
 
 CatFiles.class: CatFiles.java ProgramOptions.class BinaryCatenator.class TextCatenator.class Catenator.class InvalidUsageException.class
 	javac $<
@@ -28,3 +29,7 @@ test: all
 	echo "Single file" > gen/single
 	! java CatFiles
 	! java CatFiles gen/single
+
+clean:
+	@rm -v *.class || true
+	@rm -rv gen || true
