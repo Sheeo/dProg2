@@ -71,6 +71,7 @@ public class CatFiles {
 			}
 			args.add(arg);
 		}
+		if (0 == args.inputArgs.size()) throw new InvalidUsageException("No input files specified");
 		inputArgs = args.inputArgs;
 		outputArg = args.outputArg;
 

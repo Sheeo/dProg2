@@ -26,6 +26,9 @@ test: all
 	cat gen/input1 gen/input2 > gen/outputexpect
 	java CatFiles gen/input1 gen/input2 gen/output
 	diff gen/output gen/outputexpect
+	java CatFiles -t gen/input1 gen/input2 gen/output
+	diff gen/output gen/outputexpect
+	! java CatFiles -nc gen/input1 gen/input2 gen/output
 	echo "Single file" > gen/single
 	! java CatFiles
 	! java CatFiles gen/single
