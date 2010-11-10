@@ -1,0 +1,10 @@
+Aflevering Uge 1 for Mathias Rav og Michael Søndergaard
+
+CatFiles:
+	usage: java CatFiles [-a|-nc] [--] input [input [...]] outputArg
+
+Hexa:
+	usage: run HexaTester
+
+Non-Handin:
+	For-fun projects
