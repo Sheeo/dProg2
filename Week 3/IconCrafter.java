@@ -14,6 +14,7 @@ public class IconCrafter extends JFrame {
 
 	private JPanel outerPanel;
 	private JPanel buttonPanel;
+	private JPanel iconPanel;
 	private CompositeIcon ballsIcon;
 	private JLabel ballsLabel;
 
@@ -25,11 +26,11 @@ public class IconCrafter extends JFrame {
 
 	private void createOuterPanel() {
 		createButtonPanel();
-		createIcon();
+		createIconPanel();
 		outerPanel = new JPanel() {{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			add(buttonPanel);
-			add(ballsLabel);
+			add(iconPanel);
 		}};
 	}
 	
@@ -40,6 +41,13 @@ public class IconCrafter extends JFrame {
 			add(new ColorButton("Grøn", Color.GREEN));
 			add(new ColorButton("Blå", Color.BLUE));
 		}};
+	}
+
+	private void createIconPanel() {
+		createIcon();
+		iconPanel = new JPanel();
+		iconPanel.setLayout(new FlowLayout());
+		iconPanel.add(ballsLabel);
 	}
 
 	private void createIcon() {
@@ -56,10 +64,9 @@ public class IconCrafter extends JFrame {
 		}
 		private class ColorActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add "+color);
 				IconCrafter.this.ballsIcon.addIcon(new BallIcon(color));
+				IconCrafter.this.ballsLabel.invalidate();
 				IconCrafter.this.pack();
-				IconCrafter.this.repaint();
 			}
 		}
 	}
