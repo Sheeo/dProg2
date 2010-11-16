@@ -14,7 +14,7 @@ public class IconCrafter extends JFrame {
 
 	private JPanel outerPanel;
 	private JPanel buttonPanel;
-	private BallsIcon ballsIcon;
+	private CompositeIcon ballsIcon;
 	private JLabel ballsLabel;
 
 	public IconCrafter() {
@@ -43,7 +43,7 @@ public class IconCrafter extends JFrame {
 	}
 
 	private void createIcon() {
-		ballsIcon = new BallsIcon();
+		ballsIcon = new CompositeIcon();
 		ballsLabel = new JLabel(ballsIcon);
 	}
 
@@ -56,7 +56,7 @@ public class IconCrafter extends JFrame {
 		}
 		private class ColorActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				ballsIcon.addCircle(color);
+				//ballsIcon.addCircle(color);
 			}
 		}
 	}
