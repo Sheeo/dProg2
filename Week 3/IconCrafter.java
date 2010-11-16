@@ -56,7 +56,7 @@ public class IconCrafter extends JFrame {
 		}
 		private class ColorActionListener implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
-				//ballsIcon.addCircle(color);
+				ballsIcon.addIcon(new BallIcon(color));
 			}
 		}
 	}
