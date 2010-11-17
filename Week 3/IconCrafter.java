@@ -27,20 +27,18 @@ public class IconCrafter extends JFrame {
 	private void createOuterPanel() {
 		createButtonPanel();
 		createIconPanel();
-		outerPanel = new JPanel() {{
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-			add(buttonPanel);
-			add(iconPanel);
-		}};
+		outerPanel = new JPanel();
+		outerPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		outerPanel.add(buttonPanel);
+		outerPanel.add(iconPanel);
 	}
 	
 	private void createButtonPanel() {
-		buttonPanel = new JPanel() {{
-			setLayout(new GridLayout(1,3));
-			add(new ColorButton("Rød", Color.RED));
-			add(new ColorButton("Grøn", Color.GREEN));
-			add(new ColorButton("Blå", Color.BLUE));
-		}};
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(1,3));
+		buttonPanel.add(new ColorButton("Rød", Color.RED));
+		buttonPanel.add(new ColorButton("Grøn", Color.GREEN));
+		buttonPanel.add(new ColorButton("Blå", Color.BLUE));
 	}
 
 	private void createIconPanel() {
@@ -55,19 +53,17 @@ public class IconCrafter extends JFrame {
 		ballsLabel = new JLabel(ballsIcon);
 	}
 
-	private class ColorButton extends JButton {
+	private class ColorButton extends JButton implements ActionListener {
 		private Color color;
 		public ColorButton(String label, Color c) {
 			super(label);
 			color = c;
-			addActionListener(new ColorActionListener());
+			addActionListener(this);
 		}
-		private class ColorActionListener implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-				IconCrafter.this.ballsIcon.addIcon(new BallIcon(color));
-				IconCrafter.this.ballsLabel.invalidate();
-				IconCrafter.this.pack();
-			}
+		public void actionPerformed(ActionEvent e) {
+			ballsIcon.addIcon(new BallIcon(color));
+			ballsLabel.invalidate();
+			pack();
 		}
 	}
 }
