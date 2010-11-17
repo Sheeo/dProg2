@@ -8,6 +8,9 @@ import javax.swing.plaf.basic.*;
 public class IconCrafter extends JFrame {
 	public static void main(String[] args) {
 		IconCrafter crafter = new IconCrafter();
+		crafter.addColor("Rød", new Color(0xED1C24));
+		crafter.addColor("Grøn", new Color(0x228B22));
+		crafter.addColor("Blå", new Color(0x007FFF));
 		crafter.pack();
 		crafter.setVisible(true);
 		crafter.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -29,17 +32,18 @@ public class IconCrafter extends JFrame {
 		createButtonPanel();
 		createIconPanel();
 		outerPanel = new JPanel();
-		outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.Y_AXIS));
+		outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
 		outerPanel.add(buttonPanel);
 		outerPanel.add(iconPanel);
 	}
-	
+
+	public void addColor(String name, Color color) {
+		buttonPanel.add(new ColorButton(name, color));
+	}
+
 	private void createButtonPanel() {
 		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(1,3));
-		buttonPanel.add(new ColorButton("Rød", new Color(0xED1C24)));
-		buttonPanel.add(new ColorButton("Grøn", new Color(0x228B22)));
-		buttonPanel.add(new ColorButton("Blå", new Color(0x007FFF)));
+		buttonPanel.setLayout(new GridLayout(1,0));
 	}
 
 	private void createIconPanel() {
