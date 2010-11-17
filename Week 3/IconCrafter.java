@@ -3,6 +3,7 @@ import java.awt.event.*;
 import java.util.*;
 import java.awt.*;
 import javax.swing.event.*;
+import javax.swing.plaf.basic.*;
 
 public class IconCrafter extends JFrame {
 	public static void main(String[] args) {
@@ -59,11 +60,19 @@ public class IconCrafter extends JFrame {
 			super(label);
 			color = c;
 			addActionListener(this);
+			setUI(new ColoredBasicButtonUI());
 		}
 		public void actionPerformed(ActionEvent e) {
 			ballsIcon.addIcon(new BallIcon(color));
 			ballsLabel.invalidate();
 			pack();
+		}
+		private class ColoredBasicButtonUI extends BasicButtonUI {
+			public void paint(Graphics g, JComponent c) {
+				g.setColor(color);
+				g.fillRect(0, 0, c.getWidth(), c.getHeight());
+				super.paint(g, c);
+			}
 		}
 	}
 }
