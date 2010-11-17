@@ -1,0 +1,7 @@
+Compile with
+  javac IconCrafter.java
+and run with
+  java IconCrafter
+or optionally, specify a number of name=hex arguments defining the colors you
+want to be able to add. The defaults can be mimicked with
+  java IconCrafter Rød=ED1C24 Grøn=228B22 Blå=007FFF
