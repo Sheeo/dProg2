@@ -28,7 +28,7 @@ public class IconCrafter extends JFrame {
 		createButtonPanel();
 		createIconPanel();
 		outerPanel = new JPanel();
-		outerPanel.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.Y_AXIS));
 		outerPanel.add(buttonPanel);
 		outerPanel.add(iconPanel);
 	}
