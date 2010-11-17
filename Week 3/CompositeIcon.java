@@ -15,8 +15,11 @@ public class CompositeIcon implements Icon {
 	 * Returns the icon's height.
 	 */
 	public int getIconHeight() {
+		// we can't cache this, because our own contained icons might have
+		// changed their dimensions
 		return Collections.max(new ArrayList<Integer>() {{
-			add(1); // minimum value
+			add(1); // minimum value. needed if we have no children, or
+			        // Collections will complain
 			for (Icon i : icons) {
 				add(i.getIconHeight());
 			}
@@ -31,6 +34,7 @@ public class CompositeIcon implements Icon {
 		for (Icon i : icons) {
 			x += i.getIconWidth();
 		}
+		if (x < 1) return 1; // minimum value
 		return x;
 	}
 
@@ -41,7 +45,8 @@ public class CompositeIcon implements Icon {
 		int dx = 0;
 		for (Icon i : icons) {
 			i.paintIcon(c, g, x+dx, y);
-			dx += i.getIconWidth();
+			dx += i.getIconWidth(); // offset the next icon by this icon's
+			                        // width
 		}
 	}
 
@@ -49,3 +54,6 @@ public class CompositeIcon implements Icon {
 		icons.add(icon);
 	}
 }
+
+/* vim:sw=4 ts=4 sts=4 noet
+ */
