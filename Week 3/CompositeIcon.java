@@ -1,8 +1,6 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
 import java.awt.*;
-import javax.swing.event.*;
+import java.util.*;
+import javax.swing.*;
 
 public class CompositeIcon implements Icon {
 	private ArrayList<Icon> icons;
