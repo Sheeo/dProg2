@@ -1,8 +1,5 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
 import java.awt.*;
-import javax.swing.event.*;
+import javax.swing.*;
 
 public class BallIcon implements Icon {
 	private final int width = 50;
