@@ -6,11 +6,6 @@ import javax.swing.event.*;
 import javax.swing.plaf.basic.*;
 
 public class IconCrafter extends JFrame {
-	public static void main(String[] args) {
-		IconCrafterProgram prog = new IconCrafterProgram(args);
-		prog.execute();
-	}
-
 	private JPanel outerPanel;
 	private JPanel buttonPanel;
 	private JPanel iconPanel;
