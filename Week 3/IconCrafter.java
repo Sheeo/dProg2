@@ -36,9 +36,9 @@ public class IconCrafter extends JFrame {
 	private void createButtonPanel() {
 		buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1,3));
-		buttonPanel.add(new ColorButton("Rød", Color.RED));
-		buttonPanel.add(new ColorButton("Grøn", Color.GREEN));
-		buttonPanel.add(new ColorButton("Blå", Color.BLUE));
+		buttonPanel.add(new ColorButton("Rød", new Color(0xED1C24)));
+		buttonPanel.add(new ColorButton("Grøn", new Color(0x228B22)));
+		buttonPanel.add(new ColorButton("Blå", new Color(0x007FFF)));
 	}
 
 	private void createIconPanel() {
