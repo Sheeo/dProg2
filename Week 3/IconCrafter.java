@@ -1,8 +1,6 @@
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
 import java.awt.*;
-import javax.swing.event.*;
+import java.awt.event.*;
+import javax.swing.*;
 import javax.swing.plaf.basic.*;
 
 public class IconCrafter extends JFrame {
