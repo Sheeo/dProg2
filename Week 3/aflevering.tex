@@ -17,9 +17,8 @@
 \date{Uge 3, November 19, 2010}
 \maketitle
 
-
 \section{Anonyme klasser og hjælpemetoder}
-Istedet for anonyme klasser til brug som ActionListener's, har vi valgt at 
+I stedet for anonyme klasser til brug som ActionListeners, har vi valgt at 
 lave en subklasse af JButton, som vi har kaldt ColorButton. Vi kunne dog 
 have brugt en hjælpemetode og anynom klasse til at opnå det samme.
 
@@ -28,10 +27,30 @@ at forstå. Hvis vi en dag skulle udvide programmet, ville det være nemt for os
 at genbruge koden, som vi allerede har skrevet, andre isteder i programmet. 
 
 \section{Interfaces}
-I vores program bruger vi to interfaces: \texttt{ActionListener} og \texttt{Icon} 
+I vores program bruger vi to interfaces. \texttt{BallIcon} og
+\texttt{CompositeIcon} implementerer begge \texttt{Icon}, og vores
+\texttt{ColorButton} implementerer \texttt{ActionListener}.
 
 \section{Designmønstre}
-Udover COMPOSITE-mønstret, benytter vi os af java-klasserne, som i sig selv 
-implementerer en række designmønstre.
+Ud over \textit{Composite}, som vi har implementeret i \texttt{CompositeIcon},
+lægger Javas indbyggede UI-biblioteker op til, at vi benytter \textit{Observer}
+til at reagere på UI-hændelser, sådan som det er implementeret i
+\texttt{ColorButton} med \texttt{ActionListener}-interfacet.
+
+\textit{Strategy}-mønstret er brugt til at ændre farven på de enkelte
+\texttt{ColorButtons} ved at udvide \texttt{BasicButtonUI}-klassen. Java
+tilbyder mange måder at tegne knapper og andre UI-elementer på gennem sine
+\texttt{ComponentUI}-klasser. For knapper findes der som standard både
+\texttt{BasicButtonUI} og \texttt{MetalButtonUI}. Man kan nemt skifte udseendet
+af sine knapper ved at kalde deres \texttt{setUI}-metode med den passende
+\texttt{ButtonUI}-instans. I forhold til \textit{Strategy}-mønstret har vi
+implementeret en ny strategi til konteksten at tegne knapper - eller rettere,
+vi har udvidet \texttt{BasicButtonUI}-strategien til at passe til vores formål.
+
+\texttt{IconCrafter} kunne have været opgraderet til en \textit{Facade}, som
+stod for at håndtere interfacet til \texttt{JFrame} selv, for at gøre arbejdet
+nemmere for driverklasserne \texttt{Driver} og \texttt{IconCrafterProgram}. Det
+har dog ikke vist sig hverken nødvendigt eller bekvemt for et miniprojekt som
+dette.
 
 \end{document}
