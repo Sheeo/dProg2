@@ -1,0 +1,36 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{listings}
+\usepackage{color}
+\lstloadlanguages{C,sh,JVMIS}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0.1in}
+
+\begin{document}
+
+\title{Programmering 2, E2010. Aflevering 3}
+\author{Mathias Rav, 20103940 \\
+		Michael Søndergaard, 20104223 \\
+		DAT-3}
+\date{Uge 3, November 19, 2010}
+\maketitle
+
+
+\section{Anonyme klasser og hjælpemetoder}
+Istedet for anonyme klasser til brug som ActionListener's, har vi valgt at 
+lave en subklasse af JButton, som vi har kaldt ColorButton. Vi komme dog 
+have brugt en hjælpemetode og anynom klasse til at opnå det samme.
+
+Vi har valgt at gøre det på denne måde, fordi koden bliver pænere, og nemmere
+at forstå. 
+
+\section{Interfaces}
+I vores program bruger vi to interfaces: \texttt{ActionListener} og \texttt{Icon} 
+
+\section{Designmønstre}
+Udover COMPOSITE-mønstret, benytter vi os af java-klasserne, som i sig selv 
+implementerer en række designmønstre.
+
+\end{document}
