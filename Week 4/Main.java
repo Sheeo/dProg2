@@ -2,6 +2,8 @@ class Main
 {
 	public static void main(String[] args)
 	{
-		System.out.println(BinominalCoefficient.func(30, 15));
+		BinomialContext c = new BinomialContext();
+
+		c.binomial(n, k);
 	}
 }
