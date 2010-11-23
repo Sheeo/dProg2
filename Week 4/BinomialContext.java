@@ -10,7 +10,7 @@ public class BinomialContext
 			b = new BinomialSlow();
 	}
 
-	public long Binomial(long n, long k)
+	public long binomial(long n, long k)
 	{
 		return b.binomial(n, k);
 	}
