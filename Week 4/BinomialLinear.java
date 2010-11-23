@@ -1,5 +1,5 @@
 /**
- * Class for calculating BinomialCoefficient
+ * Class for calculating the binomial coefficient
  */
 class BinomialLinear implements Binomial
 {
@@ -11,10 +11,14 @@ class BinomialLinear implements Binomial
 	 */
 	public long binomial(long n, long k)
 	{
+		if (0 > k || k > n || n > 60)
+			throw new IllegalArgumentException();
+
 		// Base case
 		if(k == 0 || n == k)
 			return 1;
+
 		// Recursive case
-		return func(n, k-1) * (n-k+1)/k;
+		return binomial(n, k-1) * (n-k+1)/k;
 	}
 }
