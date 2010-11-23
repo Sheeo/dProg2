@@ -1,3 +1,7 @@
+import java.awt.*;
+import javax.swing.*;
+
+
 public class BinomialFrame extends JFrame
 {
 	private JPanel panel;
@@ -11,6 +15,6 @@ public class BinomialFrame extends JFrame
 	private void createPanel()
 	{
 		panel = new JPanel();
-		panel.setLayout(new BoxLayout());
+		//panel.setLayout(new BoxLayout());
 	}
 }
