@@ -9,6 +9,7 @@ public class GUIMain
 	public static void main(String[] args)
 	{
 		GUIMain prog = new GUIMain();
+		prog.execute();
 	}
 
 	public GUIMain()
@@ -18,7 +19,7 @@ public class GUIMain
 
 	public void execute() {
 		binomial.pack();
-	//	binomial.setVisible();
+		binomial.setVisible(true);
 		binomial.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	}
 }
