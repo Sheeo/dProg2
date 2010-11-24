@@ -9,6 +9,7 @@ public class BinomialFrame extends JFrame
 	{
 		super();
 		createOuter();
+		add(outerPanel);
 	}
 
 	private void createOuter()
