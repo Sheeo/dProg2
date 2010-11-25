@@ -7,7 +7,11 @@ public class BinomialFrame extends JFrame
 	private JPanel outerPanel;
 	private JPanel textFieldPanel;
 	private JPanel radioButtonPanel;
-	private Binomial selected;
+	private JTextField nField;
+	private JTextField kField;
+	private BinomialRadioButton selected;
+	private JButton submit;
+	private JLabel resultLabel;
 
 	public BinomialFrame()
 	{
@@ -26,6 +30,8 @@ public class BinomialFrame extends JFrame
 		outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
 		outerPanel.add(textFieldPanel);
 		outerPanel.add(radioButtonPanel);
+		outerPanel.add(submit);
+		outerPanel.add(resultLabel);
 	}
 
 	private void createTextFields()
@@ -51,13 +57,21 @@ public class BinomialFrame extends JFrame
 		c.gridy = 0;
 		c.weightx = 1.0;
 		c.fill = GridBagConstraints.HORIZONTAL;
-		JTextField text1 = new JTextField();
-		gridbag.setConstraints(text1, c);
-		textFieldPanel.add(text1);
+		nField = new JTextField();
+		gridbag.setConstraints(nField, c);
+		textFieldPanel.add(nField);
 		++c.gridy;
-		JTextField text2 = new JTextField();
-		gridbag.setConstraints(text2, c);
-		textFieldPanel.add(text2);
+		kField = new JTextField();
+		gridbag.setConstraints(kField, c);
+		textFieldPanel.add(kField);
+	}
+
+	private long getN() {
+		return Long.parseLong(nField.getText());
+	}
+
+	private long getK() {
+		return Long.parseLong(kField.getText());
 	}
 
 	private void createRadioButtons() {
@@ -69,19 +83,32 @@ public class BinomialFrame extends JFrame
 
 	private Binomial getStrategy() {
 		if (selected != null) {
-			return selected;
+			return selected.getStrategy();
 		}
 		return null;
 	}
 
-	private void setStrategy(Binomial b) {
+	private void setStrategy(BinomialRadioButton b) {
 		selected = b;
 	}
 
 	private void createSubmitButton() {
+		submit = new JButton("Calculate");
+		submit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BinomialContext ctxt = new BinomialContext(getStrategy(), getN(), getK());
+				setResult(new Long(ctxt.binomial()).toString());
+			}
+		});
 	}
 
 	private void createResultLabel() {
+		resultLabel = new JLabel();
+	}
+
+	private void setResult(String res) {
+		resultLabel.setText(res);
+		System.out.println(res);
 	}
 
 	private class BinomialRadioButton extends JRadioButton implements ActionListener {
@@ -92,6 +119,8 @@ public class BinomialFrame extends JFrame
 			super(text, checked);
 			this.strategy = strategy;
 			this.parent = parent;
+			this.addActionListener(this);
+			if (checked) parent.setStrategy(this);
 		}
 
 		public Binomial getStrategy() {
@@ -99,7 +128,7 @@ public class BinomialFrame extends JFrame
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			parent.setStrategy(strategy);
+			parent.setStrategy(this);
 		}
 	}
 }
