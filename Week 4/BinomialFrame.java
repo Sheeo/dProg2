@@ -30,7 +30,7 @@ public class BinomialFrame extends JFrame
 		outerPanel.setLayout(new BoxLayout(outerPanel, BoxLayout.PAGE_AXIS));
 		outerPanel.add(textFieldPanel);
 		outerPanel.add(radioButtonPanel);
-		outerPanel.add(submit);
+		outerPanel.add(new JPanel() {{add(submit);}});
 		outerPanel.add(new JPanel() {{add(resultLabel); setMinimumSize(new Dimension(1, 100));}});
 	}
 
