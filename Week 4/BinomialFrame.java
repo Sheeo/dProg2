@@ -31,7 +31,7 @@ public class BinomialFrame extends JFrame
 		outerPanel.add(textFieldPanel);
 		outerPanel.add(radioButtonPanel);
 		outerPanel.add(submit);
-		outerPanel.add(resultLabel);
+		outerPanel.add(new JPanel() {{add(resultLabel); setMinimumSize(new Dimension(1, 100));}});
 	}
 
 	private void createTextFields()
@@ -96,8 +96,20 @@ public class BinomialFrame extends JFrame
 		submit = new JButton("Calculate");
 		submit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BinomialContext ctxt = new BinomialContext(getStrategy(), getN(), getK());
-				setResult(new Long(ctxt.binomial()).toString());
+				try {
+					BinomialContext ctxt = new BinomialContext(getStrategy(), getN(), getK());
+					setResult(new Long(ctxt.binomial()).toString());
+				} catch (IllegalArgumentException ex) {
+					setResult("Illegal argument(s)");
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					String msg = ex.getMessage();
+					if (msg == null || msg.length() == 0) {
+						setResult(ex.getClass().getName());
+					} else {
+						setResult(msg);
+					}
+				}
 			}
 		});
 	}
@@ -108,6 +120,7 @@ public class BinomialFrame extends JFrame
 
 	private void setResult(String res) {
 		resultLabel.setText(res);
+		pack();
 		System.out.println(res);
 	}
 
