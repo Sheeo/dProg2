@@ -1,27 +1,22 @@
 import java.io.*;
 
+/**
+ * CLI wrapper around BinomialContext context, that always chooses the linear strategy.
+ */
 public class CLIMain
 {
 	public static void main(String[] args)
 	{
 		try
 		{
-			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter strategy (linear/slow)");
-			String strategy = in.readLine();
-			System.out.println("Enter n: ");
-			long n = Long.parseLong(in.readLine());
-
-			System.out.println("Enter k: ");
-			long k = Long.parseLong(in.readLine());
-
-			BinomialContext c = new BinomialContext(strategy, n, k);
-			System.out.println("BinomialCoefficient: ");
+			long n = Long.parseLong(args[0]);
+			long k = Long.parseLong(args[1]);
+			BinomialContext c = new BinomialContext("linear", n , k);
 			System.out.println(c.binomial());
 		}
-		catch(IOException e)
+		catch(IndexOutOfBoundsException e)
 		{
-			System.out.println("Exception!");
+			System.out.println("Illegal argument(s)");
 		}
 	}
 }
