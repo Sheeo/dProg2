@@ -48,6 +48,18 @@ public class Employee
 		return 13*super.hashCode()+17*name.hashCode()+23*new Double(salary).hashCode();
 	}
 
+	public boolean equals(Object other) {
+		if (other.getClass() != Employee.class) return false;
+		if (other.hashCode() != hashCode()) return false;
+		return employeeEquals((Employee) other);
+	}
+
+	private boolean employeeEquals(Employee other) {
+		if (!getName().equals(other.getName())) return false;
+		if (Math.abs(getSalary()-other.getSalary()) > 0.001*getSalary()) return false;
+		return true;
+	}
+
 	private String name;
 	private double salary;
 }

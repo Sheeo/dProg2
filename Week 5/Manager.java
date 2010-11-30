@@ -31,6 +31,10 @@ public class Manager extends Employee
 		return super.getSalary() + bonus;
 	}
 
+	public double getBonus() {
+		return bonus;
+	}
+
 	public String toString() {
 		return getName()+" has been ecstatic lately. His bonus was increased to "+
 			bonus+" lately. He has earned a yearly salary of "+
@@ -39,6 +43,19 @@ public class Manager extends Employee
 
 	public int hashCode() {
 		return 7*super.hashCode()+29*new Double(bonus).hashCode();
+	}
+
+	public boolean equals(Object other) {
+		if (other.getClass() != Manager.class) return false;
+		if (other.hashCode() != hashCode()) return false;
+		return managerEquals((Manager) other);
+	}
+
+	private boolean managerEquals(Manager other) {
+		if (!getName().equals(other.getName())) return false;
+		if (Math.abs(bonus-other.getBonus()) > 0.001*bonus) return false;
+		if (Math.abs(getSalary()-other.getSalary()) > 0.001*getSalary()) return false;
+		return true;
 	}
 
 	private double bonus;
