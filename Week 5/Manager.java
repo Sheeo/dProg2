@@ -47,7 +47,7 @@ public class Manager extends Employee
 
 	public boolean equals(Object other) {
 		if (other.getClass() != Manager.class) return false;
-		if (other.hashCode() != hashCode()) return false;
+		//if (other.hashCode() != hashCode()) return false;
 		return managerEquals((Manager) other);
 	}
 

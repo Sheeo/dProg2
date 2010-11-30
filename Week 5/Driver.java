@@ -19,9 +19,13 @@ public class Driver {
 		e.setSalary(e.getSalary()*1.25);
 		if (e.equals(happyDilbert)) {
 			System.out.println("Now he is SO happy. Just look at him!");
+			System.out.println(e);
 		} else {
 			System.out.println("That did no good!");
+			System.out.println("Got:");
+			System.out.println(e);
+			System.out.println("Expected:");
+			System.out.println(happyDilbert);
 		}
-		System.out.println(e);
 	}
 }

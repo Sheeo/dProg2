@@ -50,7 +50,7 @@ public class Employee
 
 	public boolean equals(Object other) {
 		if (other.getClass() != Employee.class) return false;
-		if (other.hashCode() != hashCode()) return false;
+		//if (other.hashCode() != hashCode()) return false;
 		return employeeEquals((Employee) other);
 	}
 
