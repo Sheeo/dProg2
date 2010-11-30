@@ -37,5 +37,9 @@ public class Manager extends Employee
 			getSalary()+" recently.";
 	}
 
+	public int hashCode() {
+		return 7*super.hashCode()+29*new Double(bonus).hashCode();
+	}
+
 	private double bonus;
 }

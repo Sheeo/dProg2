@@ -44,6 +44,10 @@ public class Employee
 			salary+" lately. He was bullied at work lately.";
 	}
 
+	public int hashCode() {
+		return 13*super.hashCode()+17*name.hashCode()+23*new Double(salary).hashCode();
+	}
+
 	private String name;
 	private double salary;
 }
