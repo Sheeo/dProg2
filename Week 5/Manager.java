@@ -31,5 +31,11 @@ public class Manager extends Employee
       return super.getSalary() + bonus;
    }
 
+   public String toString() {
+	   return getName()+" has been ecstatic lately. His bonus was increased to "+
+		   bonus+" lately. He has earned a yearly salary of "+
+		   getSalary()+" recently.";
+   }
+
    private double bonus;
 }
