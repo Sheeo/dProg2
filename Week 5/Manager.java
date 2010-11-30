@@ -32,9 +32,9 @@ public class Manager extends Employee
    }
 
    public String toString() {
-	   return getName()+" has been ecstatic lately. His bonus was increased to "+
-		   bonus+" lately. He has earned a yearly salary of "+
-		   getSalary()+" recently.";
+      return getName()+" has been ecstatic lately. His bonus was increased to "+
+         bonus+" lately. He has earned a yearly salary of "+
+         getSalary()+" recently.";
    }
 
    private double bonus;
