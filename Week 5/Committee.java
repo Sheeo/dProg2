@@ -48,4 +48,19 @@ public class Committee {
 		if (!other.members.equals(members)) return false;
 		return true;
 	}
+
+	public int hashCode() {
+		return 37*name.hashCode()+
+		       (chairperson == null ? 0 : 41*chairperson.hashCode())+
+		       (purpose == null ? 0 : 47*purpose.hashCode())+
+		       7*membersHashCode();
+	}
+
+	private int membersHashCode() {
+		int h = 0;
+		for (Employee e : members) {
+			h += e.hashCode();
+		}
+		return h;
+	}
 }
