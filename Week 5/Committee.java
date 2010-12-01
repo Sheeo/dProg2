@@ -36,20 +36,16 @@ public class Committee {
 		members.add(e);
 	}
 
-	public HashSet<Committee> getMembers() {
-		return (HashSet<Committee>) members.clone();
-	}
-	
 	public boolean equals(Object other) {
 		if (other.getClass() != Committee.class) return false;
 		return equalsCommittee((Committee) other);
 	}
 
 	private boolean equalsCommittee(Committee other) {
-		if (!other.getName().equals(name)) return false;
-		if (other.getPurpose() != purpose) return false; // enum type
-		if (!other.getChairperson().equals(chairperson)) return false;
-		if (!other.getMembers().equals(members)) return false;
+		if (!other.name.equals(name)) return false;
+		if (other.purpose != purpose) return false; // enum type
+		if (!other.chairperson.equals(chairperson)) return false;
+		if (!other.members.equals(members)) return false;
 		return true;
 	}
 }
