@@ -35,10 +35,14 @@ public class Manager extends Employee
 		return bonus;
 	}
 
-	public String toString() {
+	public String thoughts() {
 		return getName()+" has been ecstatic lately. His bonus was increased to "+
 			bonus+" lately. He has earned a yearly salary of "+
 			getSalary()+" recently.";
+	}
+
+	public String toString() {
+		return getName()+", Manager, "+getSalary()+"/yr inc. "+bonus+"/yr bonus";
 	}
 
 	public int hashCode() {

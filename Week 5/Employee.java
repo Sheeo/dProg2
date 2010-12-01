@@ -39,9 +39,13 @@ public class Employee
 		return salary;
 	}
 
-	public String toString() {
+	public String thoughts() {
 		return getName()+", Employee has been miserable lately. He couldn't support his family with his measly salary of "+
 			salary+" lately. He was bullied at work lately.";
+	}
+
+	public String toString() {
+		return getName()+", Employee, "+getSalary()+"/yr";
 	}
 
 	public int hashCode() {
