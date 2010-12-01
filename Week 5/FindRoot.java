@@ -6,12 +6,12 @@ public class FindRoot {
 
     /**
      * Metode der finder et nulpunkt for en kontinuert funktion f i 
-     * intervallet [lower,higher]. For at sikre at der findes en løsning
-     * kræves det at f(lower)*f(higher) < 0.
+     * intervallet [lower,higher]. For at sikre at der findes en lÃ¸sning
+     * krÃ¦ves det at f(lower)*f(higher) < 0.
      * @param f funktion for hvilken der vil findes et nulpunkt.
-     * @param lower nedre grænse for intervallet.
-     * @param higher øvre grænse for intervallet.
-     * @return et tal x så f(x) ~= 0.
+     * @param lower nedre grÃ¦nse for intervallet.
+     * @param higher Ã¸vre grÃ¦nse for intervallet.
+     * @return et tal x sÃ¥ f(x) ~= 0.
      */
     public static double bisection(Function f, double lower, double higher) {
 	int iterations = 0;
@@ -31,12 +31,12 @@ public class FindRoot {
 
     /**
      * Metode der finder et nulpunkt for en differentiabel funktion f 
-     * ved Newton iteration startende fra en værdi x. Det forventes at
-     * f'(x) != 0 i omegnen nulpunktet, og at startværdien x er nær
+     * ved Newton iteration startende fra en vÃ¦rdi x. Det forventes at
+     * f'(x) != 0 i omegnen nulpunktet, og at startvÃ¦rdien x er nÃ¦r
      * nulpunktet.
      * @param f funktion for hvilken der vil findes et nulpunkt.
-     * @param x startværdi til Newton iteration.
-     * @return et tal x så f(x) ~= 0.
+     * @param x startvÃ¦rdi til Newton iteration.
+     * @return et tal x sÃ¥ f(x) ~= 0.
      */
     public static double newtonIteration(Function f, double x) {
 	double previousX;

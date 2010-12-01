@@ -1,18 +1,18 @@
 /*
- * Klasser der implementerer Function repræsenterer en differentiabel
+ * Klasser der implementerer Function reprÃ¦senterer en differentiabel
  * funktion f.
  */
 public interface Function {
 
     /**
-     * Udregner værdien af funktionen f.
+     * Udregner vÃ¦rdien af funktionen f.
      * @param x
      * @return f(x)
      */
     public double getValue(double x);
 
     /**
-     * Udregner den afledede værdi af funktionen f.
+     * Udregner den afledede vÃ¦rdi af funktionen f.
      * @param x
      * @return f'(x)
      */
