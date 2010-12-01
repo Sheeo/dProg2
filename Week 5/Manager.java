@@ -3,14 +3,10 @@
 */
 public class Manager extends Employee 
 {
-	/**
-		Constructs a Manager object
-		@param aName the employee's name
-	*/
-	public Manager(String aName)
+	public Manager(String aName, double aSalary, double aBonus)
 	{
-		super(aName);
-		bonus = 0;
+		super(aName, aSalary);
+		bonus = aBonus;
 	}
 
 	/**

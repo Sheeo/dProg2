@@ -3,13 +3,10 @@
 */
 public class Employee
 {
-	/**
-		Constructs an Employee object
-		@param aName the employee's name
-	*/
-	public Employee(String aName)
+	public Employee(String aName, double aSalary)
 	{
 		name = aName;
+		salary = aSalary;
 	}
 
 	/**

@@ -1,8 +1,8 @@
+import java.util.*;
+
 public class Driver {
-	private final static Employee happyDilbert = new Employee("Dilbert");
-	static {
-		happyDilbert.setSalary(55000);
-	}
+	private final static Employee happyDilbert = new Employee("Dilbert", 55000);
+	private final static Random rng = new Random();
 
 	public static void main(String[] args) {
 		Driver d = new Driver();
@@ -11,10 +11,14 @@ public class Driver {
 
 	private Manager manager;
 	private Employee employee;
+	private ArrayList<Employee> colleagues;
+	private Committee committee;
 
 	public Driver() {
 		createMananger();
 		createDilbert();
+		createColleagues();
+		createCommittee();
 	}
 
 	public void drive(String[] args) {
@@ -22,12 +26,11 @@ public class Driver {
 		meetDilbert();
 		dilbertGetsARaise();
 		checkHappiness();
+		meetTheCommittee();
 	}
 
 	private void createMananger() {
-		manager = new Manager("P.H.B.");
-		manager.setSalary(80000);
-		manager.setBonus(10000);
+		manager = new Manager("P.H.B.", 80000, 10000);
 	}
 
 	private void meetTheManager() {
@@ -37,8 +40,7 @@ public class Driver {
 	}
 
 	private void createDilbert() {
-		employee = new Employee("Dilbert");
-		employee.setSalary(44000);
+		employee = new Employee("Dilbert", 44000);
 	}
 
 	private void meetDilbert() {
@@ -63,5 +65,34 @@ public class Driver {
 			System.out.println("Expected:");
 			System.out.println(happyDilbert);
 		}
+	}
+
+	private void createColleagues() {
+		colleagues = new ArrayList<Employee>();
+		colleagues.add(new Employee("Phil", 45000));
+		colleagues.add(new Employee("Will", 43000));
+		colleagues.add(new Employee("Eve", 25000));
+		colleagues.add(new Employee("Adam", 38000));
+	}
+
+	private void createCommittee() {
+		committee = new Committee("Java Conventions Implementations Committee");
+		committee.appointChairperson(manager);
+		committee.addMember(employee);
+		for (Employee e : colleagues) {
+			/* Select employees for the committee based on some criteria.  We
+			 * use a random number generator to make this decision, since that
+			 * seems to closely model the situation in real life.
+			 */
+			if (rng.nextDouble() >= 0.5) {
+				committee.addMember(e);
+			}
+		}
+	}
+
+	private void meetTheCommittee() {
+		System.out.println("Dilbert was forced to join a committee.");
+		System.out.println(committee);
+		System.out.println();
 	}
 }
