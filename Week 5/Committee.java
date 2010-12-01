@@ -31,7 +31,7 @@ public class Committee {
 	public Manager getChairperson() {
 		return chairperson;
 	}
-	
+
 	public void addMember(Employee e) {
 		members.add(e);
 	}
