@@ -14,10 +14,13 @@ public class FindRoot {
 	 * @return et tal x så f(x) ~= 0.
 	 */
 	public static double bisection(Function f, double lower, double higher) {
+		return bisection(f, lower, higher, 1e-7);
+	}
+	public static double bisection(Function f, double lower, double higher, double precision) {
 		int iterations = 0;
 		double average = lower+(higher-lower)/2.0;
 		double fhigher = f.getValue(higher);
-		while(true) {
+		do {
 			double fx = f.getValue(average);
 			if(fx*fhigher < 0)
 				lower = average;
@@ -27,8 +30,7 @@ public class FindRoot {
 			}
 			average = lower+(higher-lower)/2.0;
 			iterations++;
-			if (iterations >= 10000) break;
-		}
+		} while (iterations < 10000 && Math.abs(higher-lower) > average*precision);
 		System.out.println("Bisection required " + iterations + 
 		                   " iterations to find a root.");
 		return average;
