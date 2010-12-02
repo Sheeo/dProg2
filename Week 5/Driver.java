@@ -2,16 +2,39 @@ import java.util.*;
 
 public abstract class Driver {
 	public static void main(String[] args) {
-		Driver d = new RootDriver();
+		Driver d;
+		if (args.length > 0 && args[0].equals("root")) {
+			d = new RootDriver();
+		} else if (args.length > 0 && args[0].equals("committee")) {
+			d = new CommitteeDriver();
+		} else {
+			d = new UsageDriver();
+		}
 		d.drive(args);
 	}
 	public void drive(String[] args) {
 	}
 }
 
-class RootDriver extends Driver {
+class UsageDriver extends Driver {
 	public void drive(String[] args) {
-		double y = 1830.0;
+		System.out.println("Usage: java Driver {committee|root}");
+	}
+}
+
+class RootDriver extends Driver {
+	private final static Random rng = new Random();
+	public void drive(String[] args) {
+		double y;
+		double precision = 1e-7;
+		if (args.length > 1) {
+			y = Double.parseDouble(args[1]);
+			if (args.length > 2) {
+				precision = Double.parseDouble(args[2]);
+			}
+		} else {
+			y = 1000.0+1000.0*rng.nextDouble();
+		}
 		int approx = 0;
 		while (approx*approx*approx < y) {
 			++approx;
@@ -19,9 +42,9 @@ class RootDriver extends Driver {
 		Function fn = new Cubic(-y,0.0,0.0,1.0);
 		System.out.println(fn);
 		System.out.println("Root by bisection:");
-		System.out.println(FindRoot.bisection(fn, approx*0.9, approx));
+		System.out.println(FindRoot.bisection(fn, approx*0.9, approx, precision));
 		System.out.println("Root by Newton:");
-		System.out.println(FindRoot.newtonIteration(fn, approx));
+		System.out.println(FindRoot.newtonIteration(fn, approx, precision));
 	}
 }
 
