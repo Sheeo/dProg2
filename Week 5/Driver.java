@@ -11,6 +11,8 @@ public abstract class Driver {
 
 class RootDriver extends Driver {
 	public void drive(String[] args) {
+		System.out.println("Root:");
+		System.out.println(FindRoot.bisection(new Cubic(-9.0,0.0,0.0,1.0), 2.0, 2.5));
 	}
 }
 
