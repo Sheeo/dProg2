@@ -16,13 +16,18 @@ public class FindRoot {
 	public static double bisection(Function f, double lower, double higher) {
 		int iterations = 0;
 		double average = lower+(higher-lower)/2.0;
-		while(f.getValue(average) != 0 && iterations < 1000) {
-			iterations++;
-			if(f.getValue(average)*f.getValue(higher) < 0)
+		double fhigher = f.getValue(higher);
+		while(true) {
+			double fx = f.getValue(average);
+			if(fx*fhigher < 0)
 				lower = average;
-			else
+			else {
 				higher = average;
+				fhigher = fx;
+			}
 			average = lower+(higher-lower)/2.0;
+			iterations++;
+			if (iterations >= 10000) break;
 		}
 		System.out.println("Bisection required " + iterations + 
 		                   " iterations to find a root.");

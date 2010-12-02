@@ -11,11 +11,17 @@ public abstract class Driver {
 
 class RootDriver extends Driver {
 	public void drive(String[] args) {
-		Function fn = new Cubic(-9.0,0.0,0.0,1.0);
+		double y = 1830.0;
+		int approx = 0;
+		while (approx*approx*approx < y) {
+			++approx;
+		}
+		Function fn = new Cubic(-y,0.0,0.0,1.0);
+		System.out.println(fn);
 		System.out.println("Root by bisection:");
-		System.out.println(FindRoot.bisection(fn, 2.0, 2.2));
+		System.out.println(FindRoot.bisection(fn, approx*0.9, approx));
 		System.out.println("Root by Newton:");
-		System.out.println(FindRoot.newtonIteration(fn, 2.0));
+		System.out.println(FindRoot.newtonIteration(fn, approx));
 	}
 }
 
