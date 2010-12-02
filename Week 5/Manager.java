@@ -33,7 +33,7 @@ public class Manager extends Employee
 
 	public String thoughts() {
 		return getName()+" has been ecstatic lately. His bonus was increased to "+
-			bonus+" lately. He has earned a yearly salary of "+
+			bonus+". He has earned a yearly salary of "+
 			getSalary()+" recently.";
 	}
 
