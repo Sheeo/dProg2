@@ -25,7 +25,7 @@ public class FindRoot {
 			average = lower+(higher-lower)/2.0;
 		}
 		System.out.println("Bisection required " + iterations + 
-						   " iterations to find a root.");
+		                   " iterations to find a root.");
 		return average;
 	}
 
@@ -47,7 +47,7 @@ public class FindRoot {
 			x = x - f.getValue(x)/f.getDerivativeValue(x);
 		} while(x != previousX);
 		System.out.println("Newton iteration required " + iterations + 
-						   " iterations to find a root.");
+		                   " iterations to find a root.");
 		return x;
 	}
 }

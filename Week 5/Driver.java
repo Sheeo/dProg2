@@ -11,8 +11,11 @@ public abstract class Driver {
 
 class RootDriver extends Driver {
 	public void drive(String[] args) {
-		System.out.println("Root:");
-		System.out.println(FindRoot.bisection(new Cubic(-9.0,0.0,0.0,1.0), 2.0, 2.5));
+		Function fn = new Cubic(-9.0,0.0,0.0,1.0);
+		System.out.println("Root by bisection:");
+		System.out.println(FindRoot.bisection(fn, 2.0, 2.2));
+		System.out.println("Root by Newtow:");
+		System.out.println(FindRoot.newtonIteration(fn, 2.0));
 	}
 }
 
