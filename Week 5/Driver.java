@@ -1,20 +1,29 @@
 import java.util.*;
 
-public class Driver {
-	private final static Employee happyDilbert = new Employee("Dilbert", 55000);
-	private final static Random rng = new Random();
-
+public abstract class Driver {
 	public static void main(String[] args) {
-		Driver d = new Driver();
+		Driver d = new RootDriver();
 		d.drive(args);
 	}
+	public void drive(String[] args) {
+	}
+}
+
+class RootDriver extends Driver {
+	public void drive(String[] args) {
+	}
+}
+
+class CommitteeDriver extends Driver {
+	private final static Employee happyDilbert = new Employee("Dilbert", 55000);
+	private final static Random rng = new Random();
 
 	private Manager manager;
 	private Employee employee;
 	private ArrayList<Employee> colleagues;
 	private Committee committee;
 
-	public Driver() {
+	public CommitteeDriver() {
 		createMananger();
 		createDilbert();
 		createColleagues();
