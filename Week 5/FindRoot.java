@@ -39,13 +39,18 @@ public class FindRoot {
 	 * @return et tal x så f(x) ~= 0.
 	 */
 	public static double newtonIteration(Function f, double x) {
+		return newtonIteration(f, x, 1e-7);
+	}
+	public static double newtonIteration(Function f, double x, double precision) {
 		double previousX;
 		int iterations = 0;
+		double dx;
 		do {
 			iterations++;
 			previousX = x;
-			x = x - f.getValue(x)/f.getDerivativeValue(x);
-		} while(x != previousX);
+			dx = f.getValue(x)/f.getDerivativeValue(x);
+			x = x - dx;
+		} while(Math.abs(dx*x) > precision);
 		System.out.println("Newton iteration required " + iterations + 
 		                   " iterations to find a root.");
 		return x;
