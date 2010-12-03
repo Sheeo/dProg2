@@ -45,7 +45,7 @@ public class Committee implements Iterable<Employee> {
 		if (!other.name.equals(name)) return false;
 		if (other.purpose != purpose) return false; // enum type
 		if (!other.chairperson.equals(chairperson)) return false;
-		if (!other.members.equals(members)) return false;
+		if (!other.members.equals(members) || !other.members.containsAll(members) || !members.containsAll(other.members)) return false;
 		return true;
 	}
 

@@ -57,11 +57,18 @@ class CommitteeDriver extends Driver {
 	private ArrayList<Employee> colleagues;
 	private List<Committee> committees;
 
+	/* Don't change the hashcode (directly or indirectly) of members of a
+	 * hashset after adding them to the hashset.
+	 * http://javaadventure.blogspot.com/2007/02/hashcode-pitfalls-with-hashset-and.html
+	 *
+	 * In other words, don't create the committee until after Dilbert has
+	 * gotten a raise.
+	 */
+
 	public CommitteeDriver() {
 		createMananger();
 		createDilbert();
 		createColleagues();
-		createCommittee();
 	}
 
 	public void drive(String[] args) {
@@ -69,6 +76,8 @@ class CommitteeDriver extends Driver {
 		meetDilbert();
 		dilbertGetsARaise();
 		checkHappiness();
+
+		createCommittee(); // see above on hashsets and member mutation
 		meetTheCommittee();
 	}
 
