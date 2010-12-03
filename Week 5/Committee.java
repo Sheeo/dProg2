@@ -63,4 +63,22 @@ public class Committee {
 		}
 		return h;
 	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder(name);
+		ArrayList<Employee> memberlist = new ArrayList<Employee>();
+		for (Employee e : members) {
+			memberlist.add(e);
+		}
+		Collections.sort(memberlist, new Comparator<Employee>() {
+			public int compare(Employee a, Employee b) {
+				return a.getName().compareTo(b.getName());
+			}
+		});
+		for (Employee e : memberlist) {
+			sb.append("\n* ");
+			sb.append(e.toString());
+		}
+		return sb.toString();
+	}
 }
