@@ -66,6 +66,9 @@ public class Committee implements Iterable<Employee> {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder(name);
+		sb.append("\n* Chairperson: ");
+		sb.append(chairperson.toString());
+
 		ArrayList<Employee> memberlist = new ArrayList<Employee>();
 		for (Employee e : members) {
 			memberlist.add(e);
