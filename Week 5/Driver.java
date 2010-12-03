@@ -26,14 +26,11 @@ class RootDriver extends Driver {
 	private final static Random rng = new Random();
 	public void drive(String[] args) {
 		double y;
-		double precision = 1e-7;
 		if (args.length > 1) {
 			y = Double.parseDouble(args[1]);
-			if (args.length > 2) {
-				precision = Double.parseDouble(args[2]);
-			}
 		} else {
-			y = 1000.0+1000.0*rng.nextDouble();
+			y = (1+Math.abs(rng.nextGaussian())*100);
+			y = y*y*y;
 		}
 		int lower = 0;
 		int higher = 1;
@@ -44,9 +41,9 @@ class RootDriver extends Driver {
 		System.out.println("Finding the cube root of "+y+" (between "+lower+" and "+higher+")");
 		Function fn = new Cubic(-y,0.0,0.0,1.0);
 		System.out.println("Root by bisection:");
-		System.out.println(FindRoot.bisection(fn, lower, higher+0.1, precision));
+		System.out.println(FindRoot.bisection(fn, lower, higher+0.1));
 		System.out.println("Root by Newton:");
-		System.out.println(FindRoot.newtonIteration(fn, lower+(higher-lower)/2.0, precision));
+		System.out.println(FindRoot.newtonIteration(fn, lower+(higher-lower)/2.0));
 	}
 }
 

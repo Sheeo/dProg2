@@ -14,9 +14,9 @@ public class FindRoot {
 	 * @return et tal x så f(x) ~= 0.
 	 */
 	public static double bisection(Function f, double lower, double higher) {
-		return bisection(f, lower, higher, 1e-7);
+		return bisection(f, lower, higher, 1e-14);
 	}
-	public static double bisection(Function f, double lower, double higher, double precision) {
+	private static double bisection(Function f, double lower, double higher, double precision) {
 		int iterations = 0;
 		double average = lower+(higher-lower)/2.0;
 		double fhigher = f.getValue(higher);
@@ -46,9 +46,9 @@ public class FindRoot {
 	 * @return et tal x så f(x) ~= 0.
 	 */
 	public static double newtonIteration(Function f, double x) {
-		return newtonIteration(f, x, 1e-7);
+		return newtonIteration(f, x, 1e-14);
 	}
-	public static double newtonIteration(Function f, double x, double precision) {
+	private static double newtonIteration(Function f, double x, double precision) {
 		int iterations = 0;
 		double y, dydx, Dx;
 		do {
