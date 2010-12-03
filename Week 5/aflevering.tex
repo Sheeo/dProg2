@@ -1,0 +1,62 @@
+\documentclass{article}
+\DeclareMathSymbol{,}{\mathpunct}{letters}{"3B}
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+\DeclareMathSymbol{\decimal}{\mathord}{letters}{"3A}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage{amsmath}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0.1in}
+\newcommand{\Committee}{\texttt{Committee}}
+\newcommand{\Employee}{\texttt{Employee}}
+\newcommand{\Manager}{\texttt{Manager}}
+\newcommand{\FindRoot}{\texttt{FindRoot}}
+\newcommand{\ArrayList}{\texttt{ArrayList}}
+\newcommand{\List}{\texttt{List}}
+\newcommand{\Set}{\texttt{Set}}
+\newcommand{\HashSet}{\texttt{HashSet}}
+\newcommand{\hashCode}{\texttt{hashCode}}
+\newcommand{\equals}{\texttt{equals}}
+\author{Mathias Rav og Michael Søndergaard}
+\title{dProg2 Uge 5}
+\date{3.\ december 2010}
+\begin{document}
+\maketitle
+\section{Aggregering af medlemmer i \Committee: \List{} eller \Set}
+En \List{} repræsenterer en ordnet liste af elementer. Listen har en længde, og
+dens elementer kan tilgås enten vilkårligt vha.\ \texttt{get()}-metoden eller i
+rækkefølge vha.\ \texttt{Iterable}-interfacet. Det samme element kan optræde
+flere gange i listen.
+
+Et \Set{} repræsenterer en uordnet samling af elementer hvor hvert element kun
+kan optræde \'en gang.
+
+I forbindelse med en \Committee{} som har en række medlemmer virker det
+umiddelbart oplagt at benytte et \Set{} i den konkrete implementation af et
+\HashSet. Når vi skal tilføje et medlem til komitteen, skal vi ikke være
+bekymrede for at det samme medlem bliver tilføjet to gange, for det håndterer
+et \Set{} ved ikke at gøre noget. Havde vi valgt i stedet at bruge en \List,
+såsom \ArrayList, så ville vi være nødt til at gennemløbe listen, hver gang vi
+tilføjede et medlem, for at se om det i forvejen var tilføjet.
+
+Derfor har vi valgt at indholde komitteens medlemmer i et \HashSet.
+
+For at få den bedste ydeevne ud af et \HashSet{} kræver det, at klassen af
+objekter, den indeholder, har en meningsfuld implementation af
+\hashCode-metoden. Derudover kræver \HashSet{}, at hvert elements \hashCode{}
+ikke ændres efter elementet er tilføjet til sættet. Ellers vil nogle metoder,
+f.eks. \equals, returnere et forkert resultat.
+
+Derfor har vi valgt at lade vores \Employee{} og \Manager{} være immutable.
+\section{\FindRoot}
+Metoden \texttt{FindRoot.bisection()} er numerisk ustabil i udregningen af
+\texttt{average}. I floating point arithmetic er det bedre at udregne
+gennemsnittet af \texttt{a} og \texttt{b} som \texttt{a+(b-a)/2} end som
+\texttt{(a+b)/2}, da man nemt mister betydelige cifre i summen af $a$ og $b$.
+
+Derudover er stopbetingelsen \texttt{f.getValue(average) == 0} skidt pga.\ den
+direkte sammenligning mellem to floating point-tal. Denne stopbetingelse har vi
+skrevet om, så TODO: beskriv
+
+Derfor har vi omskrevet \texttt{bisection}. 
+\end{document}
