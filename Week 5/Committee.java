@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Committee {
+public class Committee implements Iterable<Employee> {
 	private String name;
 	private Manager chairperson;
 	private Purpose purpose;
@@ -80,5 +80,9 @@ public class Committee {
 			sb.append(e.toString());
 		}
 		return sb.toString();
+	}
+
+	public Iterator<Employee> iterator() {
+		return members.iterator();
 	}
 }
