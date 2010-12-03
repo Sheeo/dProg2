@@ -103,7 +103,7 @@ class CommitteeDriver extends Driver {
 
 	private void dilbertGetsARaise() {
 		System.out.println("But then, he got a raise!");
-		employee.setSalary(employee.getSalary()*1.25);
+		employee = employee.setSalary(employee.getSalary()*1.25);
 	}
 
 	private void checkHappiness() {

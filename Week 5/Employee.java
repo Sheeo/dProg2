@@ -1,13 +1,9 @@
-public class Employee {
+public class Employee implements Cloneable {
 	private String name;
 	private double salary;
 
 	public Employee(String aName, double aSalary) {
 		name = aName;
-		salary = aSalary;
-	}
-
-	public void setSalary(double aSalary) {
 		salary = aSalary;
 	}
 
@@ -19,14 +15,18 @@ public class Employee {
 		return salary;
 	}
 
-	public String thoughts() {
-		return getName()+", Employee has been miserable lately. He couldn't "+
-		       "support his family with his measly salary of "+salary+
-		       " lately. He was bullied at work lately.";
+	public Employee clone() {
+		return new Employee(name, salary);
 	}
 
 	public String toString() {
 		return getName()+", Employee, "+getSalary()+"/yr";
+	}
+
+	public String thoughts() {
+		return getName()+", Employee has been miserable lately. He couldn't "+
+		       "support his family with his measly salary of "+salary+
+		       " lately. He was bullied at work lately.";
 	}
 
 	public int hashCode() {
@@ -45,5 +45,17 @@ public class Employee {
 		if (Math.abs(getSalary()-other.getSalary()) > 0.001*getSalary())
 			return false;
 		return true;
+	}
+
+	public Employee setName(String name) {
+		Employee e = clone();
+		e.name = name;
+		return e;
+	}
+
+	public Employee setSalary(double salary) {
+		Employee e = clone();
+		e.salary = salary;
+		return e;
 	}
 }
