@@ -150,14 +150,14 @@ class CommitteeDriver extends Driver {
 	}
 
 	private void meetTheCommittee() {
-		System.out.println("Dilbert is in a programming committee of some sort.");
+		System.out.println("The pre-raise Dilbert was in a programming committee of some sort.");
 		System.out.println(committees.get(0));
 		System.out.println();
 		System.out.println("He also joined a coffee brewers committee.");
 		System.out.println(committees.get(1));
 		System.out.println();
 		if (committees.get(0).equals(committees.get(1))) {
-			System.out.println("My oh my if they aren't identical!");
+			System.out.println("My oh my if they weren't identical!");
 		} else {
 			System.out.println("Huh! I can't tell the difference, but they're !equals, somehow.");
 		}
