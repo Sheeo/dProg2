@@ -35,16 +35,18 @@ class RootDriver extends Driver {
 		} else {
 			y = 1000.0+1000.0*rng.nextDouble();
 		}
-		int approx = 0;
-		while (approx*approx*approx < y) {
-			++approx;
+		int lower = 0;
+		int higher = 1;
+		while (higher*higher*higher < y) {
+			++lower;
+			++higher;
 		}
-		System.out.println("Finding the cube root of "+y+" (approx "+approx+")");
+		System.out.println("Finding the cube root of "+y+" (between "+lower+" and "+higher+")");
 		Function fn = new Cubic(-y,0.0,0.0,1.0);
 		System.out.println("Root by bisection:");
-		System.out.println(FindRoot.bisection(fn, approx*0.9, approx, precision));
+		System.out.println(FindRoot.bisection(fn, lower, higher+0.1, precision));
 		System.out.println("Root by Newton:");
-		System.out.println(FindRoot.newtonIteration(fn, approx, precision));
+		System.out.println(FindRoot.newtonIteration(fn, lower+(higher-lower)/2.0, precision));
 	}
 }
 
