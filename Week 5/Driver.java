@@ -55,7 +55,7 @@ class CommitteeDriver extends Driver {
 	private Manager manager;
 	private Employee employee;
 	private ArrayList<Employee> colleagues;
-	private Committee committee;
+	private List<Committee> committees;
 
 	public CommitteeDriver() {
 		createMananger();
@@ -108,6 +108,7 @@ class CommitteeDriver extends Driver {
 			System.out.println("Expected:");
 			System.out.println(happyDilbert);
 		}
+		System.out.println();
 	}
 
 	private void createColleagues() {
@@ -119,23 +120,41 @@ class CommitteeDriver extends Driver {
 	}
 
 	private void createCommittee() {
-		committee = new Committee("Java Conventions Implementations Committee");
-		committee.appointChairperson(manager);
-		committee.addMember(employee);
+		ArrayList<Committee> list = new ArrayList<Committee>();
+		committees = list;
+		Committee programmers = new Committee("Java Implementations Committee");
+		programmers.appointChairperson(manager);
+		programmers.addMember(employee);
 		for (Employee e : colleagues) {
 			/* Select employees for the committee based on some criteria.  We
 			 * use a random number generator to make this decision, since that
 			 * seems to closely model the situation in real life.
 			 */
 			if (rng.nextDouble() >= 0.5) {
-				committee.addMember(e);
+				programmers.addMember(e);
 			}
 		}
+		list.add(programmers);
+
+		Committee coffeefans = new Committee("Java Implementations Committee");
+		coffeefans.appointChairperson(manager);
+		for (Employee e : programmers) {
+			coffeefans.addMember(e);
+		}
+		list.add(coffeefans);
 	}
 
 	private void meetTheCommittee() {
-		System.out.println("Dilbert was forced to join a committee.");
-		System.out.println(committee);
+		System.out.println("Dilbert is in a programming committee of some sort.");
+		System.out.println(committees.get(0));
 		System.out.println();
+		System.out.println("He also joined a coffee brewers committee.");
+		System.out.println(committees.get(1));
+		System.out.println();
+		if (committees.get(0).equals(committees.get(1))) {
+			System.out.println("My oh my if they aren't identical!");
+		} else {
+			System.out.println("Huh! I can't tell the difference, but they're !equals, somehow.");
+		}
 	}
 }
