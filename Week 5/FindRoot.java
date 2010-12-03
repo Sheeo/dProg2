@@ -55,9 +55,9 @@ public class FindRoot {
 			iterations++;
 			y = f.getValue(x);
 			dydx = f.getDerivativeValue(x);
-			Dx = y/dydx;
-			x = x - Dx;
-		} while(Math.abs(Dx*x) > precision);
+			Dx = -y/dydx;
+			x += Dx;
+		} while(Math.abs(Dx) > precision);
 		System.out.println("Newton iteration required " + iterations + 
 		                   " iterations to find a root.");
 		return x;

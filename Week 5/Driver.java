@@ -39,8 +39,8 @@ class RootDriver extends Driver {
 		while (approx*approx*approx < y) {
 			++approx;
 		}
+		System.out.println("Finding the cube root of "+y+" (approx "+approx+")");
 		Function fn = new Cubic(-y,0.0,0.0,1.0);
-		System.out.println(fn);
 		System.out.println("Root by bisection:");
 		System.out.println(FindRoot.bisection(fn, approx*0.9, approx, precision));
 		System.out.println("Root by Newton:");
