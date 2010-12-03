@@ -1,29 +1,22 @@
-/**
-  A class for modeling Employees who are Managers
-*/
-public class Manager extends Employee 
-{
-	public Manager(String aName, double aSalary, double aBonus)
-	{
+public class Manager extends Employee {
+	private double bonus;
+
+	public Manager(String aName, double aSalary, double aBonus) {
 		super(aName, aSalary);
 		bonus = aBonus;
 	}
 
-	/**
-		Sets the bonus
-		@param the new bonus
-	*/
-	public void setBonus(double aBonus)
-	{
-		bonus = aBonus;
+	public Manager clone() {
+		return new Manager(getName(), getSalary()-bonus, bonus);
 	}
 
-	/**
-		Returns the manager's salary
-		@return the salary
-	*/
-	public double getSalary()
-	{
+	public Manager setBonus(double bonus) {
+		Manager m = clone();
+		m.bonus = bonus;
+		return m;
+	}
+
+	public double getSalary() {
 		return super.getSalary() + bonus;
 	}
 
@@ -57,6 +50,4 @@ public class Manager extends Employee
 		if (Math.abs(getSalary()-other.getSalary()) > 0.001*getSalary()) return false;
 		return true;
 	}
-
-	private double bonus;
 }
