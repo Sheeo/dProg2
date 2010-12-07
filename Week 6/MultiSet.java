@@ -24,14 +24,18 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return true;
 	}
 
-	/*public boolean remove(E e) {
+  @Override
+	public boolean remove(Object e) {
+    return false;
+    /*
 		Integer i = elems.get(e);
 		if(i == null || i == 0) i = 0;
 		else i = i -1;
 		elems.remove(e);
 		--elementCount;
 		return true;
-	}*/
+    */
+	}
 
 	@Override
 	public boolean addAll(Collection<? extends E> collection) throws RuntimeException
@@ -52,12 +56,6 @@ public class MultiSet<E> extends AbstractCollection<E> {
 	}
 	
 	@Override
-	public boolean equals(Object other) {
-		if (other.getClass() != this.getClass()) return false;
-		return equalsMultiSet((MultiSet<?>) other);
-	}
-	
-	@Override
 	public int hashCode() {
 		return elems.hashCode();
 	}
@@ -67,6 +65,12 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return elems.toString();
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != this.getClass()) return false;
+		return equalsMultiSet((MultiSet<?>) other);
+	}
+	
 	private <F> boolean equalsMultiSet(MultiSet<F> other) {
 		if (this == other) return true;
 		return this.elems.equals(other.elems);

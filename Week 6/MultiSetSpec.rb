@@ -15,48 +15,39 @@ import 'MultiSet'
 include_class Java::MultiSet
 
 describe MultiSet do
- context "when created empty" do
-   before(:each) do
-     @multiset = MultiSet.new
-   end
-   
-   it "should be empty" do
-     @multiset.size.should == 0
-   end
+  let(:multiset) { MultiSet.new }
 
-   it "should respond to #toString" do
-     @multiset.toString.should == "{}"
-   end
+  describe "#new" do
+    it "initializes an empty multiset" do
+      multiset.size.should equal(0)
+    end
 
-   it "should respond to #add" do
-     @multiset.add(5)
-     @multiset.size.should == 1
-   end
-    
-   it "should fail to #remove" do
-     @multiset.remove(5).should == false
-   end
+    context "with parameters" do
+      {
+        [5,1,2,5] => "{1=1, 2=1, 5=2}",
+        [5,2,1] => "{1=1, 2=1, 5=1}",
+        [5,5,4,4,1,1,1,1,2] => "{1=4, 2=1, 4=2, 5=2}"
+      }.each do |array, toStringValue|
+        describe " - #{array.size} elements" do
+          let(:multiset) {MultiSet.new(array)}
 
-   it "should be able to add and remove" do
-     @multiset.add(2).should == true
-     @multiset.add(3).should == true
-     @multiset.add(2).should == true
-     @multiset.remove(2).should == true
-   end
- end
+          it "initializes a non-empty multiset from a collection" do
+            multiset.size.should == array.size 
+          end
 
- context "when created with a collection" do
-   before(:each) do
-     @multiset = MultiSet.new([5, 4, 2, 1])
-   end
+          it "has no duplicates" do
+            multiset.toString.should == toStringValue 
+          end
 
-   it "should not be empty" do
-     @multiset.size.should > 0
-   end
+        end
+      end
+    end
+  end
 
-   it "should respond to #toString with \"{5=1, 4=1, 2=1, 1=1}\"" do
-     @multiset.toString.should == "{1=1, 2=1, 4=1, 5=1}"
-   end
-
- end
+  describe "#add" do
+    it "adds an item to a multiset" do
+      multiset.add(2)
+      multiset.size.should equal(1)
+    end
+  end
 end
