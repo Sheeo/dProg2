@@ -10,6 +10,9 @@ MultiSetTest.class: MultiSetTest.java
 pdf:
 	pdflatex aflevering.tex
 
+spec: MultiSet.class
+	rspec --format=documentation MultiSetSpec.rb
+
 test: Driver.class MultiSet.class MultiSetTest.class
 	#"Testing Wordcount on sourcefiles"
 	java Driver wordcount MultiSet.java Driver.java
