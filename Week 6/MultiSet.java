@@ -1,0 +1,64 @@
+import java.util.*;
+
+public class MultiSet<E> extends AbstractCollection<E> {
+	private HashMap<E, Integer> elems;
+	private int elementCount;
+
+	public MultiSet() {
+		elems = new HashMap<E, Integer>();
+		elementCount = 0;
+	}
+
+	public boolean add(E e) {
+		Integer i = elems.get(e);
+		if (i == null) i = 1;
+		else i = i + 1;
+		elems.put(e, i);
+		++elementCount;
+		return true;
+	}
+
+	public int size() {
+		return elementCount;
+	}
+
+	public Iterator<E> iterator() {
+		return new MultiIterator();
+	}
+
+	private class MultiIterator implements Iterator<E> {
+		private Set<E> elemKeys;
+		private E currentKey;
+		private int currentKeyCount;
+		private Iterator<E> keyIt;
+		private int nextIdx;
+
+		public MultiIterator() {
+			elemKeys = elems.keySet();
+			keyIt = elemKeys.iterator();
+			nextIdx = 0;
+		}
+
+		public E next() {
+			if (currentKey != null && currentKeyCount > nextIdx) {
+				++nextIdx;
+			} else {
+				currentKey = keyIt.next();
+				currentKeyCount = elems.get(currentKey);
+			}
+			return currentKey;
+		}
+
+		public boolean hasNext() {
+			if (currentKey != null && currentKeyCount > nextIdx) {
+				return true;
+			} else {
+				return keyIt.hasNext();
+			}
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+	}
+}
