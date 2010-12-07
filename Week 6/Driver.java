@@ -54,12 +54,20 @@ class WordDriver extends Driver {
 			WordCountRunner r = new WordCountRunner(f, q);
 			r.run();
 		}
+		int sum = 0;
+		int valids = 0;
 		for (int read = 0; read < args.length; ++read) {
 			try {
-				System.out.println(q.take());
+				WordCountingResult r = q.take();
+				if (r.exception == null) {
+					sum += r.count;
+					++valids;
+				}
+				System.out.println(r);
 			} catch (InterruptedException e) {
 				System.err.println("They're onto us!");
 			}
 		}
+		System.out.println(sum+" words in "+valids+" files"+((valids != args.length) ? " ("+(args.length-valids)+" invalids)" : ""));
 	}
 }
