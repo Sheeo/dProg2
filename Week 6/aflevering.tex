@@ -7,22 +7,29 @@
 \usepackage{amsmath}
 \setlength{\parindent}{0in}
 \setlength{\parskip}{0.1in}
-\newcommand{\Committee}{\texttt{Committee}}
-\newcommand{\Employee}{\texttt{Employee}}
-\newcommand{\Manager}{\texttt{Manager}}
-\newcommand{\FindRoot}{\texttt{FindRoot}}
 \newcommand{\ArrayList}{\texttt{ArrayList}}
 \newcommand{\List}{\texttt{List}}
 \newcommand{\Set}{\texttt{Set}}
 \newcommand{\HashSet}{\texttt{HashSet}}
 \newcommand{\hashCode}{\texttt{hashCode}}
 \newcommand{\equals}{\texttt{equals}}
+\newcommand{\MultiSet}{\texttt{MultiSet}}
 \author{Mathias Rav og Michael Søndergaard}
 \title{dProg2 Uge 5}
 \date{3.\ december 2010}
 \begin{document}
 \maketitle
-\paragraph{Sektion 1.}
+\paragraph{Spørgsmål 1.}
+Ved at bruge HashMap som "storage" i vores HashSet klasse, er det nemt for os
+at implementere toString(), hashCode() og equals() ved bare at delegere kaldene
+videre til HashMap.
+
+\paragraph{Spørgsmål 2.}
+Vi kan override addAll() metoden fra AbstractCollection, men den er ikke til meget
+nytte, uden vi benytter den til at iterere igennem parameteren som vi får,
+og tilføje hver enkelt element til vores MultiSet.
+
+
 
 
 \end{document}
