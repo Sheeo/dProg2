@@ -9,12 +9,27 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		elementCount = 0;
 	}
 
+	public MultiSet(Collection<E> collection)
+	{
+		elems = new HashMap<E, Integer>();
+		addAll(collection);
+	}
+
 	public boolean add(E e) {
 		Integer i = elems.get(e);
 		if (i == null) i = 1;
 		else i = i + 1;
 		elems.put(e, i);
 		++elementCount;
+		return true;
+	}
+	@Override
+	public boolean addAll(Collection<? extends E> collection) throws RuntimeException
+	{
+		for(E elem : collection)
+		{
+			add(elem);
+		}
 		return true;
 	}
 

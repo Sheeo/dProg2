@@ -45,6 +45,14 @@ class MultiDriver extends Driver {
 		System.out.println(t);
 		System.out.println(s.equals(t));
 		System.out.println(t.equals(s));
+		System.out.println("Test addAll()");
+		ArrayList<Integer> alt = new ArrayList<Integer>();
+		alt.add(1);
+		alt.add(5);
+		alt.add(5);
+		alt.add(3);
+		MultiSet<Integer> nt = new MultiSet<Integer>(alt);
+		System.out.println(nt);
 	}
 }
 

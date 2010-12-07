@@ -4,6 +4,9 @@ Driver.class: Driver.java
 MultiSet.class: MultiSet.java
 	javac MultiSet.java
 
+pdf:
+	pdflatex aflevering.tex
+
 test: Driver.class MultiSet.class
 	#"Testing Wordcount on sourcefiles"
 	java Driver wordcount MultiSet.java Driver.java
