@@ -26,12 +26,14 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return new MultiIterator();
 	}
 	
+	@Override
 	public boolean equals(Object other) {
 		if (other.getClass() != this.getClass()) return false;
 		return equalsMultiSet((MultiSet<?>) other);
 	}
 	
-	@Override public int hashCode() {
+	@Override
+	public int hashCode() {
 		return elems.hashCode();
 	}
 
