@@ -25,6 +25,16 @@ public class MultiSet<E> extends AbstractCollection<E> {
 	public Iterator<E> iterator() {
 		return new MultiIterator();
 	}
+	
+	public boolean equals(Object other) {
+		if (other.getClass() != this.getClass()) return false;
+		return equalsMultiSet((MultiSet<?>) other);
+	}
+
+	private <F> boolean equalsMultiSet(MultiSet<F> other) {
+		if (this == other) return true;
+		return this.elems.equals(other.elems);
+	}
 
 	private class MultiIterator implements Iterator<E> {
 		private Set<E> elemKeys;
