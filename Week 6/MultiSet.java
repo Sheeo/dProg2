@@ -23,6 +23,16 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		++elementCount;
 		return true;
 	}
+
+	/*public boolean remove(E e) {
+		Integer i = elems.get(e);
+		if(i == null || i == 0) i = 0;
+		else i = i -1;
+		elems.remove(e);
+		--elementCount;
+		return true;
+	}*/
+
 	@Override
 	public boolean addAll(Collection<? extends E> collection) throws RuntimeException
 	{
