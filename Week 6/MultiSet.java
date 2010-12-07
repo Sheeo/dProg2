@@ -45,6 +45,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			} else {
 				currentKey = keyIt.next();
 				currentKeyCount = elems.get(currentKey);
+				nextIdx = 1;
 			}
 			return currentKey;
 		}
