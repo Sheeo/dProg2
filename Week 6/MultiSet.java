@@ -30,6 +30,10 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		if (other.getClass() != this.getClass()) return false;
 		return equalsMultiSet((MultiSet<?>) other);
 	}
+	
+	@Override public int hashCode() {
+		return elems.hashCode();
+	}
 
 	private <F> boolean equalsMultiSet(MultiSet<F> other) {
 		if (this == other) return true;
