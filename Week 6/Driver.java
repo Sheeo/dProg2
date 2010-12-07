@@ -4,10 +4,23 @@ import java.util.concurrent.*;
 
 public abstract class Driver {
 	public static void main(String[] args) {
-		Driver d = new WordDriver();
+		Driver d;
+		if (args.length > 0 && args[0].equals("wordcount")) {
+			d = new WordDriver();
+		} else if (args.length > 0 && args[0].equals("multiset")) {
+			d = new MultiDriver();
+		} else {
+			d = new UsageDriver();
+		}
 		d.drive(args);
 	}
 	public abstract void drive(String[] args);
+}
+class UsageDriver extends Driver {
+	public void drive(String[] args) {
+		System.out.println("Usage: java wordcount [file1 [file2 [...]]] (for the wordcount driver)");
+		System.out.println("       java multiset                        (for the multiset driver)");
+	}
 }
 class MultiDriver extends Driver {
 	private static final Random rng = new Random();
