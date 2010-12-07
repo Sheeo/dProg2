@@ -39,14 +39,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 	
 	@Override
 	public String toString() {
-		String buffer = "{";
-		for(E elem : elems.keySet())
-		{
-			buffer += "(" + elem.toString() + " -> ";
-			buffer += elems.get(elem).toString() + ")";
-		}
-		buffer += "}";
-		return buffer;
+		return elems.toString();
 	}
 
 	private <F> boolean equalsMultiSet(MultiSet<F> other) {
