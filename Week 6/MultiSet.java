@@ -37,6 +37,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return elems.hashCode();
 	}
 	
+	@Override
 	public String toString() {
 		String buffer = "{";
 		for(E elem : elems.keySet())
