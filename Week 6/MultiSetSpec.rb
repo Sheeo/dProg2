@@ -27,12 +27,12 @@ describe MultiSet do
         [5,1,2,5] => "{1=1, 2=1, 5=2}",
         [5,2,1] => "{1=1, 2=1, 5=1}",
         [5,5,4,4,1,1,1,1,2] => "{1=4, 2=1, 4=2, 5=2}"
-      }.each do |array, toStringValue|
-        describe " - #{array.size} elements" do
-          let(:multiset) {MultiSet.new(array)}
+      }.each do |inputCollection, toStringValue|
+        describe " - #{inputCollection.size} elements" do
+          let(:multiset) {MultiSet.new(inputCollection)}
 
           it "initializes a non-empty multiset from a collection" do
-            multiset.size.should == array.size 
+            multiset.size.should == inputCollection.size 
           end
 
           it "has no duplicates" do
