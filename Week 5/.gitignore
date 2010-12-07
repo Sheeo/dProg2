@@ -1,7 +1,4 @@
-Committee.class
-Driver.class
-Employee.class
-FindRoot.class
-Function.class
-Manager.class
-Purpose.class
+*.class
+*.aux
+*.log
+*.pdf
