@@ -36,6 +36,17 @@ public class MultiSet<E> extends AbstractCollection<E> {
 	public int hashCode() {
 		return elems.hashCode();
 	}
+	
+	public String toString() {
+		String buffer = "{";
+		for(E elem : elems.keySet())
+		{
+			buffer += "(" + elem.toString() + " -> ";
+			buffer += elems.get(elem).toString() + ")";
+		}
+		buffer += "}";
+		return buffer;
+	}
 
 	private <F> boolean equalsMultiSet(MultiSet<F> other) {
 		if (this == other) return true;
