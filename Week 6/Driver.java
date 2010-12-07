@@ -7,8 +7,10 @@ public abstract class Driver {
 		Driver d;
 		if (args.length > 0 && args[0].equals("wordcount")) {
 			d = new WordDriver();
+			args = Arrays.copyOfRange(args, 1, args.length);
 		} else if (args.length > 0 && args[0].equals("multiset")) {
 			d = new MultiDriver();
+			args = Arrays.copyOfRange(args, 1, args.length);
 		} else {
 			d = new UsageDriver();
 		}
