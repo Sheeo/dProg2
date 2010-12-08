@@ -89,7 +89,7 @@ describe MultiSet do
   describe "iterator()" do
     let(:multiset) {MultiSet.new([5,4,3,2,2,1,0])}
 
-    it "returns an iterator that iterates through a MultiSet" do
+    it "should return an iterator for MultiSet" do
       iterator = multiset.iterator
       iterator.hasNext.should == true 
       iterator.next.should == 0 # apparently the array is reversed
