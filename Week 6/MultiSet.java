@@ -1,10 +1,12 @@
 import java.util.*;
 
-public class MultiSet<E> extends AbstractCollection<E> {
+public class MultiSet<E> extends AbstractCollection<E>
+{
 	private HashMap<E, Integer> elems;
 	private int elementCount;
 
-	public MultiSet() {
+	public MultiSet()
+  {
 		elems = new HashMap<E, Integer>();
 		elementCount = 0;
 	}
@@ -15,17 +17,19 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		addAll(collection);
 	}
 
-	public boolean add(E e) {
-		Integer i = elems.get(e);
-		if (i == null) i = 1;
-		else i = i + 1;
-		elems.put(e, i);
-		++elementCount;
-		return true;
-	}
+  public boolean add(E e)
+  {
+    Integer i = elems.get(e);
+    if (i == null) i = 1;
+    else i = i + 1;
+    elems.put(e, i);
+    ++elementCount;
+    return true;
+  }
 
   @Override
-	public boolean remove(Object e) {
+	public boolean remove(Object e)
+  {
     E element = (E)e;
 		Integer i = elems.get(element);
     if(i == 1 || i == null)
@@ -47,49 +51,58 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return true;
 	}
 
-	public int size() {
+	public int size()
+  {
 		return elementCount;
 	}
 
-	public Iterator<E> iterator() {
+	public Iterator<E> iterator()
+  {
 		return new MultiIterator();
 	}
 	
 	@Override
-	public int hashCode() {
+	public int hashCode()
+  {
 		return elems.hashCode();
 	}
 	
 	@Override
-	public String toString() {
+	public String toString()
+  {
 		return elems.toString();
 	}
 
 	@Override
-	public boolean equals(Object other) {
+	public boolean equals(Object other)
+  {
 		if (other.getClass() != this.getClass()) return false;
 		return equalsMultiSet((MultiSet<?>) other);
 	}
 	
-	private <F> boolean equalsMultiSet(MultiSet<F> other) {
+  private <F> boolean equalsMultiSet(MultiSet<F> other)
+  {
 		if (this == other) return true;
 		return this.elems.equals(other.elems);
 	}
 
-	private class MultiIterator implements Iterator<E> {
+	private class MultiIterator implements Iterator<E>
+  {
 		private Set<E> elemKeys;
 		private E currentKey;
 		private int currentKeyCount;
 		private Iterator<E> keyIt;
 		private int nextIdx;
 
-		public MultiIterator() {
+		public MultiIterator()
+    {
 			elemKeys = elems.keySet();
 			keyIt = elemKeys.iterator();
 			nextIdx = 0;
 		}
 
-		public E next() {
+		public E next()
+    {
 			if (currentKey != null && currentKeyCount > nextIdx) {
 				++nextIdx;
 			} else {
@@ -100,7 +113,8 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			return currentKey;
 		}
 
-		public boolean hasNext() {
+		public boolean hasNext()
+    {
 			if (currentKey != null && currentKeyCount > nextIdx) {
 				return true;
 			} else {
@@ -108,8 +122,9 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			}
 		}
 
-		public void remove() {
-			throw new UnsupportedOperationException();
+		public void remove()
+    {
+      throw new UnsupportedOperationException();
 		}
 	}
 }
