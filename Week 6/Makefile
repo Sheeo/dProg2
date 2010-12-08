@@ -20,3 +20,5 @@ test: Driver.class MultiSet.class MultiSetTest.class
 	java Driver multiset
 	#"Testing using gudmunds MultiSetTest.java"
 	java -ea MultiSetTest
+	#"Running specs"
+	rspec --format=documentation MultiSetSpec.rb
