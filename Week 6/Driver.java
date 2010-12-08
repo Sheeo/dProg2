@@ -18,12 +18,14 @@ public abstract class Driver {
 	}
 	public abstract void drive(String[] args);
 }
+
 class UsageDriver extends Driver {
 	public void drive(String[] args) {
 		System.out.println("Usage: java wordcount [file1 [file2 [...]]] (for the wordcount driver)");
 		System.out.println("       java multiset                        (for the multiset driver)");
 	}
 }
+
 class MultiDriver extends Driver {
 	private static final Random rng = new Random();
 	public void drive(String[] args) {
@@ -35,6 +37,7 @@ class MultiDriver extends Driver {
 				s.add(num);
 			}
 		}
+
 		System.out.println(s);
 		ArrayList<Integer> ary = new ArrayList<Integer>(s);
 		Collections.shuffle(ary);
@@ -42,6 +45,7 @@ class MultiDriver extends Driver {
 		for (Integer i : ary) {
 			t.add(i);
 		}
+
 		System.out.println(t);
 		System.out.println(s.equals(t));
 		System.out.println(t.equals(s));
