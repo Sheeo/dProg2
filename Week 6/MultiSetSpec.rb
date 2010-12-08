@@ -17,7 +17,7 @@ include_class Java::MultiSet
 describe MultiSet do
   let(:multiset) { MultiSet.new }
 
-  describe "new()" do
+  describe "MultiSet()" do
     it "initializes an empty multiset" do
       multiset.size.should equal(0)
     end
@@ -61,10 +61,12 @@ describe MultiSet do
     {
       [5,1,2,5] => "{1=1, 2=1, 5=2}",
       [5,2,1] => "{1=1, 2=1, 5=1}",
-      [5,5,4,4,1,1,1,1,2] => "{1=4, 2=1, 4=2, 5=2}"
+      [5,5,4,4,1,1,1,1,2] => "{1=4, 2=1, 4=2, 5=2}",
+      ["foo", "bar", "goat"] => "{goat=1, foo=1, bar=1}",
+      ["foo", "foo", "goat"] => "{goat=1, foo=2}"
     }.each do |inputCollection, toStringValue|
 
-      context " with #{inputCollection}" do
+      context " with #{inputCollection.join(" ")}" do
         let(:multiset) {MultiSet.new(inputCollection)}
 
         it "prints #{toStringValue}" do
@@ -74,4 +76,22 @@ describe MultiSet do
     end
   end
 
+  describe "iterator()" do
+    let(:multiset) {MultiSet.new([5,4,3,2,2,1,0])}
+
+    it "returns an iterator that iterates through a MultiSet" do
+      iterator = multiset.iterator
+      iterator.hasNext.should == true 
+      iterator.next.should == 0 # apparently the array is reversed
+      iterator.next.should == 1
+    end
+
+    it "is able to remove elements from the MultiSet" do
+      pending "MultiIterator is weird"
+      iterator = multiset.iterator
+      iterator.next
+      iterator.remove
+      multiset.size.should == 6
+    end
+  end
 end
