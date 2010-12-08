@@ -18,25 +18,25 @@ describe MultiSet do
   let(:multiset) { MultiSet.new }
 
   describe "MultiSet()" do
-    it "initializes an empty multiset" do
+    it "should initialize an empty multiset" do
       multiset.size.should equal(0)
     end
 
-    it "initializes a non-empty multiset" do
+    it "should initialize a non-empty multiset" do
       multiset = MultiSet.new([5,2,3])
       multiset.size.should equal(3)
     end
   end
 
   describe "add()" do
-    it "adds an item to the multiset" do
+    it "should add an item to the multiset" do
       multiset.add(2)
       multiset.size.should equal(1)
     end
   end
 
   describe "remove()" do
-    it "removes an item from the multiset" do
+    it "should remove an item from the multiset" do
       multiset.add(2)
       multiset.remove(2)
       multiset.size.should equal(0)
@@ -44,16 +44,26 @@ describe MultiSet do
   end
 
   describe "addAll()" do
-    it "adds all elements from a collection" do
+    it "should add all elements from a collection" do
       multiset.addAll([5,2,3,2])
       multiset.size.should equal(4)
     end
   end
 
   describe "hashCode()" do
-    it "returns a hashcode of the multiset" do
+    it "should return a hashcode of the multiset" do
       multiset.addAll([1,1,1,1])
       multiset.hashCode.should_not equal(nil)
+    end
+
+    it "should return the same hashcode for identical objects" do
+      multiset.addAll([1,2,3,4])
+      multiset.hashCode.should == MultiSet.new([1,2,3,4]).hashCode
+    end
+    
+    it "should not return the same hashcode for different objects" do
+      multiset.addAll([1,2,3,4])
+      multiset.hashCode.should_not == MultiSet.new([1,1,2]).hashCode
     end
   end
 
@@ -85,13 +95,16 @@ describe MultiSet do
       iterator.next.should == 0 # apparently the array is reversed
       iterator.next.should == 1
     end
-
-    it "is able to remove elements from the MultiSet" do
-      pending "MultiIterator is weird"
-      iterator = multiset.iterator
-      iterator.next
-      iterator.remove
-      multiset.size.should == 6
+    describe "MultiIterator" do
+      describe "remove()" do
+        it "should remove elements from the MultiSet" do
+          pending "MultiIterator is weird"
+          iterator = multiset.iterator
+          iterator.next
+          iterator.remove
+          multiset.size.should == 6
+        end
+      end
     end
   end
 end
