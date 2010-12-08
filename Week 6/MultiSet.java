@@ -26,15 +26,15 @@ public class MultiSet<E> extends AbstractCollection<E> {
 
   @Override
 	public boolean remove(Object e) {
-    return false;
-    /*
-		Integer i = elems.get(e);
-		if(i == null || i == 0) i = 0;
-		else i = i -1;
-		elems.remove(e);
-		--elementCount;
-		return true;
-    */
+    E element = (E)e;
+		Integer i = elems.get(element);
+    if(i == 1 || i == null)
+      elems.remove(element);
+    else
+      --i;
+    elems.put(element, i);
+    --elementCount;
+    return true;
 	}
 
 	@Override
