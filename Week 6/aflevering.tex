@@ -1,0 +1,35 @@
+\documentclass{article}
+\DeclareMathSymbol{,}{\mathpunct}{letters}{"3B}
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+\DeclareMathSymbol{\decimal}{\mathord}{letters}{"3A}
+\usepackage[utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage{amsmath}
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0.1in}
+\newcommand{\ArrayList}{\texttt{ArrayList}}
+\newcommand{\List}{\texttt{List}}
+\newcommand{\Set}{\texttt{Set}}
+\newcommand{\HashSet}{\texttt{HashSet}}
+\newcommand{\hashCode}{\texttt{hashCode}}
+\newcommand{\equals}{\texttt{equals}}
+\newcommand{\MultiSet}{\texttt{MultiSet}}
+\author{Mathias Rav og Michael Søndergaard}
+\title{dProg2 Uge 5}
+\date{3.\ december 2010}
+\begin{document}
+\maketitle
+\paragraph{Spørgsmål 1.}
+Ved at bruge HashMap som "storage" i vores HashSet klasse, er det nemt for os
+at implementere toString(), hashCode() og equals() ved bare at delegere kaldene
+videre til HashMap.
+
+\paragraph{Spørgsmål 2.}
+Vi kan override addAll() metoden fra AbstractCollection, men den er ikke til meget
+nytte, uden vi benytter den til at iterere igennem parameteren som vi får,
+og tilføje hver enkelt element til vores MultiSet.
+
+
+
+
+\end{document}

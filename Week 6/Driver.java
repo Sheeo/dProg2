@@ -18,12 +18,14 @@ public abstract class Driver {
 	}
 	public abstract void drive(String[] args);
 }
+
 class UsageDriver extends Driver {
 	public void drive(String[] args) {
 		System.out.println("Usage: java wordcount [file1 [file2 [...]]] (for the wordcount driver)");
 		System.out.println("       java multiset                        (for the multiset driver)");
 	}
 }
+
 class MultiDriver extends Driver {
 	private static final Random rng = new Random();
 	public void drive(String[] args) {
@@ -35,6 +37,7 @@ class MultiDriver extends Driver {
 				s.add(num);
 			}
 		}
+
 		System.out.println(s);
 		ArrayList<Integer> ary = new ArrayList<Integer>(s);
 		Collections.shuffle(ary);
@@ -42,9 +45,18 @@ class MultiDriver extends Driver {
 		for (Integer i : ary) {
 			t.add(i);
 		}
+
 		System.out.println(t);
 		System.out.println(s.equals(t));
 		System.out.println(t.equals(s));
+		System.out.println("Test addAll()");
+		ArrayList<Integer> alt = new ArrayList<Integer>();
+		alt.add(1);
+		alt.add(5);
+		alt.add(5);
+		alt.add(3);
+		MultiSet<Integer> nt = new MultiSet<Integer>(alt);
+		System.out.println(nt);
 	}
 }
 
@@ -54,7 +66,7 @@ class WordDriver extends Driver {
 		for (String fileName : args) {
 			File f = new File(fileName);
 			WordCountRunner r = new WordCountRunner(f, q);
-			r.run();
+			new Thread(r).run();
 		}
 		int sum = 0;
 		int valids = 0;

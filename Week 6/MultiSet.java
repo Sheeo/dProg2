@@ -14,6 +14,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		addAll(c);
 	}
 
+	@Override
 	public boolean add(E e) {
 		Integer i = elems.get(e);
 		if (i == null) i = 1;
@@ -23,6 +24,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return true;
 	}
 
+	@Override
 	public boolean remove(Object o) {
 		Integer i = elems.get(o);
 		if (i == null || i <= 0) return false;
@@ -35,18 +37,14 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return true;
 	}
 
+	@Override
 	public int size() {
 		return elementCount;
 	}
 
+	@Override
 	public Iterator<E> iterator() {
 		return new MultiIterator();
-	}
-	
-	@Override
-	public boolean equals(Object other) {
-		if (other.getClass() != this.getClass()) return false;
-		return equalsMultiSet((MultiSet<?>) other);
 	}
 	
 	@Override
@@ -59,6 +57,12 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		return elems.toString();
 	}
 
+	@Override
+	public boolean equals(Object other) {
+		if (other.getClass() != this.getClass()) return false;
+		return equalsMultiSet((MultiSet<?>) other);
+	}
+	
 	private <F> boolean equalsMultiSet(MultiSet<F> other) {
 		if (this == other) return true;
 		return this.elems.equals(other.elems);
@@ -77,6 +81,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			nextIdx = 0;
 		}
 
+		@Override
 		public E next() {
 			if (currentKey != null && currentKeyCount > nextIdx) {
 				++nextIdx;
@@ -88,6 +93,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			return currentKey;
 		}
 
+		@Override
 		public boolean hasNext() {
 			if (currentKey != null && currentKeyCount > nextIdx) {
 				return true;
@@ -96,6 +102,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 			}
 		}
 
+		@Override
 		public void remove() {
 			throw new UnsupportedOperationException();
 		}
