@@ -74,11 +74,13 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		private int currentKeyCount;
 		private Iterator<E> keyIt;
 		private int nextIdx;
+		private boolean removed;
 
 		public MultiIterator() {
 			elemKeys = elems.keySet();
 			keyIt = elemKeys.iterator();
 			nextIdx = 0;
+			removed = true; // disallow remove() until next() has been called
 		}
 
 		@Override
@@ -90,6 +92,7 @@ public class MultiSet<E> extends AbstractCollection<E> {
 				currentKeyCount = elems.get(currentKey);
 				nextIdx = 1;
 			}
+			removed = false;
 			return currentKey;
 		}
 
@@ -104,7 +107,10 @@ public class MultiSet<E> extends AbstractCollection<E> {
 
 		@Override
 		public void remove() {
-			throw new UnsupportedOperationException();
+			if (removed) throw new IllegalStateException("remove() called several times in a row");
+			removed = true;
+			elems.put(currentKey, --currentKeyCount);
+			--nextIdx;
 		}
 	}
 }
