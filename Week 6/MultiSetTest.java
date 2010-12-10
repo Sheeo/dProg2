@@ -17,9 +17,9 @@ public class MultiSetTest {
 		b.add("Foo");
 		System.out.println("b:" + b);
 
-		assert !a.equals(b) : "Failed test 1!"; // test equals
-		assert b.remove("Bar") : "Failed test 2!"; // test remove
-		assert a.equals(b) : "Failed test 3!";
+		assert !a.equals(b) : "Inequal sets claim to be equal";
+		assert b.remove("Bar") : "remove failed";
+		assert a.equals(b) : "Equal sets claim to be inequal";
 		Iterator<String> i = a.iterator();
 		try {
 			i.remove();
@@ -28,20 +28,20 @@ public class MultiSetTest {
 		}
 		while (i.hasNext()) { // test iterator
 			String s = i.next();
-			assert b.remove(s) : "Failed test 4!";
+			assert b.remove(s) : "remove failed";
 		}
 		try {
 			i.next();
 			assert false : "i.next() succeeded past end of list";
 		} catch (NoSuchElementException e) {
 		}
-		assert b.size() == 0 : "Failed test 5!";
+		assert b.size() == 0 : "MultiSet.size() nonzero after removing all elements";
 
 		Set<String> baseSet = new HashSet<String>(a);
-		assert baseSet.size()==2 : "Failed test 6!";	
+		assert baseSet.size()==2 : "keyset created from MultiSet has wrong size";
 
 		b = new MultiSet<String>(a);
-		assert a.equals(b) : "Failed test 7!";
+		assert a.equals(b) : "Constructor from collections fail";
 
 		i = b.iterator();
 		i.next();
