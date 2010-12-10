@@ -66,7 +66,7 @@ class WordDriver extends Driver {
 		for (String fileName : args) {
 			File f = new File(fileName);
 			WordCountRunner r = new WordCountRunner(f, q);
-			new Thread(r).run();
+			new Thread(r).start();
 		}
 		int sum = 0;
 		int valids = 0;
