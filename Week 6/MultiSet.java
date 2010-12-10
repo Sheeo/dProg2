@@ -9,12 +9,29 @@ public class MultiSet<E> extends AbstractCollection<E> {
 		elementCount = 0;
 	}
 
+	public MultiSet(Collection<E> c) {
+		this();
+		addAll(c);
+	}
+
 	public boolean add(E e) {
 		Integer i = elems.get(e);
 		if (i == null) i = 1;
 		else i = i + 1;
 		elems.put(e, i);
 		++elementCount;
+		return true;
+	}
+
+	public boolean remove(Object o) {
+		Integer i = elems.get(o);
+		if (i == null || i <= 0) return false;
+		if (i == 1) {
+			elems.remove(o);
+		} else {
+			elems.put((E) o, i-1);
+		}
+		--elementCount;
 		return true;
 	}
 
